@@ -59,7 +59,10 @@ export async function addContact({ name, email, phone, source, volunteerRole, me
   };
 
   if (phone) data.phone = normalizePhone(phone);
-  if (volunteerRole) data.volunteer_roles = arrayUnion(volunteerRole);
+  if (volunteerRole) {
+    const roles = volunteerRole.split(', ').filter(Boolean);
+    data.volunteer_roles = arrayUnion(...roles);
+  }
   if (tags.length) data.tags = arrayUnion(...tags);
 
   await setDoc(contactRef, data, { merge: true });

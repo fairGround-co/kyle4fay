@@ -719,8 +719,9 @@
       margin-bottom: 0.4rem;
     }
 
-    .form-group input,
-    .form-group select {
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"] {
       width: 100%;
       padding: 0.75rem 1rem;
       border: 2px solid #e0e4ea;
@@ -731,10 +732,52 @@
       background: var(--white);
     }
 
-    .form-group input:focus,
-    .form-group select:focus {
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group input[type="tel"]:focus {
       outline: none;
       border-color: var(--blue);
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--text);
+      cursor: pointer;
+      padding: 0.4rem 0.75rem;
+      border: 2px solid #e0e4ea;
+      border-radius: 8px;
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+    }
+
+    .checkbox-group label:hover {
+      border-color: var(--blue);
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      accent-color: var(--blue);
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .checkbox-group input[type="checkbox"]:checked + span {
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .checkbox-group label:has(input:checked) {
+      border-color: var(--blue);
+      background: rgba(33, 151, 212, 0.06);
     }
 
     .form-submit {
@@ -1225,16 +1268,15 @@
               <input type="tel" id="vol-phone" name="phone" placeholder="(479) 555-1234">
             </div>
             <div class="form-group">
-              <label for="vol-help">How can you help?</label>
-              <select id="vol-help" name="how_can_you_help" required>
-                <option value="" disabled selected>Select an option</option>
-                <option value="Knock Doors">Knock Doors</option>
-                <option value="Make Phone Calls">Make Phone Calls</option>
-                <option value="Host a Yard Sign">Host a Yard Sign</option>
-                <option value="Host a House Party">Host a House Party</option>
-                <option value="Spread the Word">Spread the Word</option>
-                <option value="Other">Other / Anything You Need</option>
-              </select>
+              <label>How can you help? <span style="font-weight:400;color:var(--text-muted);">(check all that apply)</span></label>
+              <div class="checkbox-group" id="vol-help">
+                <label><input type="checkbox" name="help" value="Knock Doors"><span>Knock Doors</span></label>
+                <label><input type="checkbox" name="help" value="Make Phone Calls"><span>Make Phone Calls</span></label>
+                <label><input type="checkbox" name="help" value="Host a Yard Sign"><span>Host a Yard Sign</span></label>
+                <label><input type="checkbox" name="help" value="Host a House Party"><span>Host a House Party</span></label>
+                <label><input type="checkbox" name="help" value="Spread the Word"><span>Spread the Word</span></label>
+                <label><input type="checkbox" name="help" value="Other"><span>Other / Anything</span></label>
+              </div>
             </div>
             <button type="submit" class="btn btn-gold form-submit" id="volunteerSubmit">Count Me In</button>
             <p class="form-status" id="volunteerStatus" style="margin-top:0.75rem;font-size:0.9rem;text-align:center;display:none;"></p>
@@ -1435,9 +1477,9 @@
       const name = form.querySelector('[name="name"]').value.trim();
       const email = form.querySelector('[name="email"]').value.trim();
       const phone = form.querySelector('[name="phone"]').value.trim();
-      const role = form.querySelector('[name="how_can_you_help"]').value;
+      const roles = [...form.querySelectorAll('input[name="help"]:checked')].map(cb => cb.value);
 
-      if (!name || !email || !role) return;
+      if (!name || !email || !roles.length) return;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
@@ -1449,7 +1491,7 @@
           email,
           phone,
           source: 'volunteer_form',
-          volunteerRole: role,
+          volunteerRole: roles.join(', '),
           tags: ['volunteer']
         });
 
