@@ -18,6 +18,7 @@
   <meta name="twitter:title" content="Kyle Smith for Fayetteville City Council">
   <meta name="twitter:description" content="A city that works for everyone. Ward 4, Position 1. November 2026.">
   <link rel="canonical" href="https://kyle4fay.org">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -1278,6 +1279,7 @@
                 <label><input type="checkbox" name="help" value="Other"><span>Other / Anything</span></label>
               </div>
             </div>
+            <div id="turnstile-container" class="cf-turnstile" data-sitekey="0x4AAAAAAEJtW_dIn_FTgcZE" data-size="invisible" data-action="turnstile-spin-v2"></div>
             <button type="submit" class="btn btn-gold form-submit" id="volunteerSubmit">Count Me In</button>
             <p class="form-status" id="volunteerStatus" style="margin-top:0.75rem;font-size:0.9rem;text-align:center;display:none;"></p>
           </form>
@@ -1319,7 +1321,6 @@
   <button class="scroll-top" id="scrollTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
 
   <script type="module">
-    import { addContact } from './js/contacts.js';
 
     // Scroll-to-top button
     const scrollBtn = document.getElementById('scrollTop');
@@ -1463,16 +1464,31 @@
       });
     });
 
-    // Volunteer form submission
+    // Volunteer form submission via Cloud Function + Turnstile
     const form = document.getElementById('volunteerForm');
     const status = document.getElementById('volunteerStatus');
     const submitBtn = document.getElementById('volunteerSubmit');
+    const formLoadedAt = Date.now();
+
+    const FUNCTION_URL = 'https://us-central1-kyle4fay-2026.cloudfunctions.net/submitVolunteer';
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // Honeypot check
       if (form.querySelector('[name="_honey"]').value) return;
+
+      // Timing check — reject submissions faster than 3 seconds
+      if (Date.now() - formLoadedAt < 3000) return;
+
+      // Turnstile token from the invisible widget
+      const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value;
+      if (!turnstileToken) {
+        status.textContent = 'Please wait a moment and try again.';
+        status.style.color = '#c0392b';
+        status.style.display = 'block';
+        return;
+      }
 
       const name = form.querySelector('[name="name"]').value.trim();
       const email = form.querySelector('[name="email"]').value.trim();
@@ -1486,14 +1502,20 @@
       status.style.display = 'none';
 
       try {
-        await addContact({
-          name,
-          email,
-          phone,
-          source: 'volunteer_form',
-          volunteerRole: roles.join(', '),
-          tags: ['volunteer']
+        const res = await fetch(FUNCTION_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, phone, roles, turnstileToken }),
         });
+
+        if (res.status === 403) {
+          status.textContent = 'Verification failed. Please refresh and try again.';
+          status.style.color = '#c0392b';
+          status.style.display = 'block';
+          return;
+        }
+
+        if (!res.ok) throw new Error(`Server error ${res.status}`);
 
         status.textContent = 'Thank you! We\'ll be in touch soon.';
         status.style.color = '#15477a';
@@ -1507,6 +1529,8 @@
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Count Me In';
+        // Reset Turnstile for retry — tokens are single-use
+        if (window.turnstile) turnstile.reset('#turnstile-container');
       }
     });
   </script>

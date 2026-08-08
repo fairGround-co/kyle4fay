@@ -3,19 +3,10 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Contacts collection: public can create and update records,
-    // but cannot read. Admin access via Firebase Console.
+    // Contacts collection: all writes go through the submitVolunteer
+    // Cloud Function (Admin SDK, bypasses rules). No client access needed.
     match /contacts/{contactId} {
-      allow create: if
-        request.resource.data.email is string &&
-        request.resource.data.email.size() > 0 &&
-        request.resource.data.status == 'new';
-
-      allow update: if
-        request.resource.data.email is string &&
-        request.resource.data.email.size() > 0;
-
-      allow read: if false;
+      allow read, write: if false;
     }
 
     match /{document=**} {
