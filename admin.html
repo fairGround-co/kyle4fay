@@ -98,6 +98,7 @@
   }
   tbody tr:hover { background: #fafbfc; }
   td.roles { color: var(--muted); font-size: 0.85rem; }
+  td.meta { color: var(--muted); font-size: 0.85rem; white-space: nowrap; cursor: help; }
   td.date { white-space: nowrap; color: var(--muted); font-size: 0.85rem; }
   a { color: var(--blue); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -132,7 +133,7 @@
       <table>
         <thead>
           <tr>
-            <th>Name</th><th>Email</th><th>Phone</th><th>Wants to help with</th><th>Signed up</th>
+            <th>Name</th><th>Email</th><th>Phone</th><th>Wants to help with</th><th>Signed up</th><th>Browser</th><th>Came from</th>
           </tr>
         </thead>
         <tbody id="rows"></tbody>
@@ -169,6 +170,8 @@ function render(list) {
       <td>${esc(c.phone)}</td>
       <td class="roles">${esc(c.roles.join(', '))}</td>
       <td class="date">${fmtDate(c.created_at)}</td>
+      <td class="meta" title="${esc(c.user_agent)}">${esc(shortUA(c.user_agent))}</td>
+      <td class="meta" title="${esc(c.referer)}">${esc(shortRef(c.referer))}</td>
     </tr>
   `).join('');
   $('empty').style.display = list.length ? 'none' : 'block';
@@ -181,6 +184,38 @@ function esc(s) {
   return String(s ?? '').replace(/[&<>"']/g, m => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]
   ));
+}
+
+// Raw user-agent strings are far too long for a table cell. Condense to
+// browser + platform for display; the full string stays available on hover
+// and is written verbatim to the CSV.
+function shortUA(ua) {
+  if (!ua) return '';
+  const browser =
+    /Edg\//.test(ua) ? 'Edge' :
+    /OPR\/|Opera/.test(ua) ? 'Opera' :
+    /Chrome\//.test(ua) ? 'Chrome' :
+    /Safari\//.test(ua) && /Version\//.test(ua) ? 'Safari' :
+    /Firefox\//.test(ua) ? 'Firefox' :
+    /bot|crawl|spider|curl|wget|python|http/i.test(ua) ? 'Bot/script' : 'Other';
+  const os =
+    /iPhone|iPad|iPod/.test(ua) ? 'iOS' :
+    /Android/.test(ua) ? 'Android' :
+    /Windows/.test(ua) ? 'Windows' :
+    /Mac OS X/.test(ua) ? 'macOS' :
+    /Linux/.test(ua) ? 'Linux' : '';
+  return os ? `${browser} / ${os}` : browser;
+}
+
+// The valuable part of a referrer is which site sent them.
+function shortRef(url) {
+  if (!url) return '';
+  try {
+    const h = new URL(url).hostname.replace(/^www\./, '');
+    return h === 'kyle4fay.org' ? 'direct' : h;
+  } catch {
+    return url;
+  }
 }
 
 function showError(msg) {
@@ -241,18 +276,22 @@ $('outBtn').addEventListener('click', async () => {
 
 $('filter').addEventListener('input', e => {
   const q = e.target.value.toLowerCase().trim();
-  render(!q ? contacts : contacts.filter(c =>
-    (c.name + ' ' + c.email + ' ' + c.roles.join(' ')).toLowerCase().includes(q)
-  ));
+  render(!q ? contacts : contacts.filter(c => [
+    c.name, c.email, c.roles.join(' '),
+    shortUA(c.user_agent), shortRef(c.referer)
+  ].join(' ').toLowerCase().includes(q)));
 });
 
 $('csvBtn').addEventListener('click', () => {
   const cell = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  // Full user agent and referrer here, not the abbreviated display forms --
+  // the export is the audit artifact.
   const csv = [
-    ['Name', 'Email', 'Phone', 'Roles', 'Signed Up'].join(','),
+    ['Name', 'Email', 'Phone', 'Roles', 'Signed Up', 'User Agent', 'Referrer'].join(','),
     ...contacts.map(c => [
       cell(c.name), cell(c.email), cell(c.phone),
-      cell(c.roles.join('; ')), cell(c.created_at)
+      cell(c.roles.join('; ')), cell(c.created_at),
+      cell(c.user_agent), cell(c.referer)
     ].join(','))
   ].join('\n');
   const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));

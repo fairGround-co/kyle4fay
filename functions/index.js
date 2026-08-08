@@ -176,6 +176,15 @@ exports.listContacts = onRequest(
       const snap = await db.collection("contacts").orderBy("created_at", "desc").get();
       const contacts = snap.docs.map((doc) => {
         const d = doc.data();
+
+        // Surface the newest submission's client signals. arrayUnion appends,
+        // but that ordering is not contractual, so sort on timestamp instead.
+        // Records predating audit capture simply have no signals to report.
+        const latest = (d.activity || [])
+          .slice()
+          .sort((a, b) => String(a.timestamp || "").localeCompare(String(b.timestamp || "")))
+          .pop() || {};
+
         return {
           name: d.name || "",
           email: d.email || "",
@@ -184,6 +193,10 @@ exports.listContacts = onRequest(
           tags: d.tags || [],
           status: d.status || "",
           created_at: d.created_at ? d.created_at.toDate().toISOString() : null,
+          // IP is deliberately withheld: this list is shared with media staff
+          // who need contact details, not identifiers for political activity.
+          user_agent: latest.user_agent || "",
+          referer: latest.referer || "",
         };
       });
       res.json({ ok: true, count: contacts.length, contacts });
