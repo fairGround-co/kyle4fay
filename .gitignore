@@ -8,6 +8,24 @@ Design/
 /kyle-council*
 /Fam-*.jpg
 
+# Internal campaign work — MUST NOT be published.
+# This repo's working tree is the GitHub Pages publish root, so anything
+# committed here becomes world-readable at kyle4fay.org.
+Plans/
+Press/
+ElectionResults/
+gainGround/
+Voter Model Planning*.md
+race_annotations*.csv
+*.docx
+
+# Credentials — never commit
+*firebase-adminsdk*.json
+*service-account*.json
+.env
+.env.*
+*.pem
+
 # OS files
 .DS_Store
 Thumbs.db
