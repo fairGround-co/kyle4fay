@@ -49,6 +49,7 @@ exports.submitVolunteer = onRequest(
     }
 
     // Canonical Turnstile siteverify
+    // On Cloud Functions gen2 the client IP is the first X-Forwarded-For hop.
     const clientIp = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.ip;
     let result;
     try {
@@ -74,16 +75,27 @@ exports.submitVolunteer = onRequest(
       return;
     }
 
-    // Write to Firestore (same merge logic as the old client-side contacts.js)
     const normalizedEmail = normalizeEmail(email);
     const docId = emailToDocId(normalizedEmail);
     const contactRef = db.collection("contacts").doc(docId);
 
-    const roleStr = roles.join(", ");
+    // Audit trail. Attached per-submission rather than to the contact, so a
+    // repeat signup appends a new record instead of overwriting the old one.
+    // `verification` is Cloudflare's own attestation of the challenge that
+    // gated this write — challenge_ts is Cloudflare's clock, not ours.
     const activityEntry = {
       source: "volunteer_form",
       timestamp: new Date().toISOString(),
-      volunteerRole: roleStr,
+      volunteerRole: roles.join(", "),
+      ip: clientIp || "",
+      user_agent: String(req.headers["user-agent"] || "").slice(0, 512),
+      referer: String(req.headers["referer"] || "").slice(0, 512),
+      verification: {
+        provider: "turnstile",
+        challenge_ts: result.challenge_ts || "",
+        hostname: result.hostname || "",
+        action: result.action || "",
+      },
     };
 
     const data = {
@@ -91,7 +103,6 @@ exports.submitVolunteer = onRequest(
       email: normalizedEmail,
       sources: FieldValue.arrayUnion("volunteer_form"),
       status: "new",
-      created_at: FieldValue.serverTimestamp(),
       updated_at: FieldValue.serverTimestamp(),
       activity: FieldValue.arrayUnion(activityEntry),
       tags: FieldValue.arrayUnion("volunteer"),
@@ -103,7 +114,17 @@ exports.submitVolunteer = onRequest(
     }
 
     try {
-      await contactRef.set(data, { merge: true });
+      // created_at must survive re-submission, so it is written only when the
+      // document does not already exist. A plain merge would reset it every
+      // time and destroy the first-contact date.
+      await db.runTransaction(async (tx) => {
+        const existing = await tx.get(contactRef);
+        tx.set(
+          contactRef,
+          existing.exists ? data : { ...data, created_at: FieldValue.serverTimestamp() },
+          { merge: true }
+        );
+      });
       res.json({ ok: true, id: docId });
     } catch (err) {
       console.error("Firestore write error:", err);
