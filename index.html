@@ -10,15 +10,18 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kyle4fay.org">
   <meta property="og:locale" content="en_US">
-  <!-- TODO: Add og:image once social sharing image is created -->
-  <!-- <meta property="og:image" content="https://kyle4fay.org/images/og-image.jpg"> -->
-  <!-- <meta property="og:image:width" content="1200"> -->
-  <!-- <meta property="og:image:height" content="630"> -->
+  <meta property="og:image" content="https://kyle4fay.org/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Kyle Smith for Fayetteville City Council, Ward 4">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://kyle4fay.org/images/og-image.jpg">
   <meta name="twitter:title" content="Kyle Smith for Fayetteville City Council">
   <meta name="twitter:description" content="A city that works for everyone. Ward 4, Position 1. November 2026.">
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="canonical" href="https://kyle4fay.org">
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -30,11 +33,17 @@
     }
 
     :root {
-      --navy: #15477a;
-      --blue: #2197d4;
-      --gold: #ffc20e;
+      /* Rebrand 2026. Palette sampled directly from the campaign logo banner.
+         --navy and --blue keep their old names so every existing rule still
+         reads sensibly, but both now carry the new indigo/periwinkle values. */
+      --navy: #293f8e;        /* deep indigo -- headings, footer, text on light */
+      --blue: #5d70ce;        /* periwinkle -- header, hero, brand ground */
+      --gold: #f7bf0b;        /* secondary accent -- labels, rules, underlines */
+      --orange: #fc7506;      /* primary CTA */
+      --orange-dark: #d96105;
+      --cream: #fff2e3;       /* warm light -- type on the periwinkle ground */
       --white: #ffffff;
-      --light-gray: #f5f7fa;
+      --light-gray: #faf5ee;
       --text-dark: #1a1a2e;
       --text-muted: #555;
     }
@@ -56,7 +65,9 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background: var(--white);
+      /* Matches the logo banner's own ground so the artwork reads as part of
+         the bar rather than a pasted-on colored plate. */
+      background: var(--blue);
       box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
       transition: box-shadow 0.3s ease;
     }
@@ -92,17 +103,17 @@
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 500;
-      color: var(--navy);
+      color: var(--cream);
       transition: color 0.2s;
     }
 
     .nav a:hover {
-      color: var(--blue);
+      color: var(--gold);
     }
 
     .nav .btn-donate-nav {
-      background: var(--gold);
-      color: var(--navy);
+      background: var(--orange);
+      color: var(--cream);
       padding: 0.5rem 1.25rem;
       border-radius: 6px;
       font-weight: 700;
@@ -114,7 +125,7 @@
 
     .nav .btn-donate-nav:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(255, 194, 14, 0.4);
+      box-shadow: 0 4px 12px rgba(252, 117, 6, 0.35);
     }
 
     .mobile-toggle {
@@ -129,7 +140,7 @@
       display: block;
       width: 24px;
       height: 2px;
-      background: var(--navy);
+      background: var(--cream);
       margin: 5px 0;
       border-radius: 2px;
       transition: all 0.3s;
@@ -137,8 +148,8 @@
 
     /* ===== HERO ===== */
     .hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #0d3459 100%);
-      color: var(--white);
+      background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
+      color: var(--cream);
       padding: 10rem 1.5rem 6rem;
       position: relative;
       overflow: hidden;
@@ -220,16 +231,16 @@
     }
 
     .btn-blue:hover {
-      box-shadow: 0 6px 20px rgba(33, 151, 212, 0.4);
+      box-shadow: 0 6px 20px rgba(93, 112, 206, 0.4);
     }
 
-    .btn-gold {
-      background: var(--gold);
-      color: var(--navy);
+    .btn-cta {
+      background: var(--orange);
+      color: var(--cream);
     }
 
-    .btn-gold:hover {
-      box-shadow: 0 6px 20px rgba(255, 194, 14, 0.4);
+    .btn-cta:hover {
+      box-shadow: 0 6px 20px rgba(252, 117, 6, 0.35);
     }
 
     .btn-outline {
@@ -312,7 +323,7 @@
       align-items: center;
       gap: 0.5rem;
       background: var(--light-gray);
-      border: 1px solid rgba(21, 71, 122, 0.1);
+      border: 1px solid rgba(41, 63, 142, 0.1);
       border-radius: 8px;
       padding: 0.75rem 1rem;
       margin-top: 0.5rem;
@@ -345,12 +356,12 @@
 
     .plank-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(21, 71, 122, 0.1);
+      box-shadow: 0 8px 30px rgba(41, 63, 142, 0.1);
     }
 
     .plank-card.active {
       transform: none;
-      box-shadow: 0 8px 30px rgba(21, 71, 122, 0.12);
+      box-shadow: 0 8px 30px rgba(41, 63, 142, 0.12);
       border-color: var(--blue);
       border-top-color: var(--gold);
     }
@@ -465,7 +476,7 @@
     .plank-accordion-detail {
       display: none;
       padding: 1rem 0 0;
-      border-top: 1px solid rgba(21, 71, 122, 0.1);
+      border-top: 1px solid rgba(41, 63, 142, 0.1);
       margin-top: 1rem;
     }
 
@@ -519,7 +530,7 @@
 
     /* ===== WHY NOW ===== */
     .why-now {
-      background: rgba(33, 151, 212, 0.04);
+      background: rgba(93, 112, 206, 0.04);
       border-bottom: 1px solid var(--light-gray);
     }
 
@@ -544,7 +555,7 @@
       font-weight: 600;
       color: var(--navy);
       line-height: 1.6;
-      background: rgba(255, 194, 14, 0.06);
+      background: rgba(247, 191, 11, 0.06);
       border-radius: 8px;
     }
 
@@ -563,7 +574,7 @@
       background: var(--light-gray);
       border-radius: 12px;
       padding: 2rem;
-      border: 1px solid rgba(21, 71, 122, 0.08);
+      border: 1px solid rgba(41, 63, 142, 0.08);
       transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
@@ -571,7 +582,7 @@
 
     .news-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(21, 71, 122, 0.1);
+      box-shadow: 0 8px 30px rgba(41, 63, 142, 0.1);
     }
 
     .news-label {
@@ -587,13 +598,13 @@
     }
 
     .news-label-podcast {
-      background: rgba(33, 151, 212, 0.12);
+      background: rgba(93, 112, 206, 0.12);
       color: var(--blue);
     }
 
     .news-label-press {
-      background: rgba(255, 194, 14, 0.2);
-      color: #b38600;
+      background: rgba(247, 191, 11, 0.2);
+      color: #8a6a06;
     }
 
     .news-card h3 {
@@ -697,7 +708,7 @@
       background: var(--white);
       border-radius: 12px;
       padding: 2rem;
-      border: 1px solid rgba(21, 71, 122, 0.08);
+      border: 1px solid rgba(41, 63, 142, 0.08);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     }
 
@@ -719,13 +730,37 @@
       color: var(--navy);
       margin-bottom: 0.4rem;
     }
+    /* Overrides the bold navy .form-group label above: consent copy is fine
+       print, and carriers require it be legible rather than styled as a heading. */
+    .form-group label.sms-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-bottom: 0;
+    }
+    .sms-consent input {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+      accent-color: var(--navy);
+    }
+    .sms-consent a {
+      color: var(--navy);
+      text-decoration: underline;
+    }
 
     .form-group input[type="text"],
     .form-group input[type="email"],
     .form-group input[type="tel"] {
       width: 100%;
       padding: 0.75rem 1rem;
-      border: 2px solid #e0e4ea;
+      border: 2px solid #e5e0d8;
       border-radius: 8px;
       font-size: 0.95rem;
       font-family: inherit;
@@ -752,10 +787,10 @@
       gap: 0.5rem;
       font-size: 0.9rem;
       font-weight: 400;
-      color: var(--text);
+      color: var(--text-dark);
       cursor: pointer;
       padding: 0.4rem 0.75rem;
-      border: 2px solid #e0e4ea;
+      border: 2px solid #e5e0d8;
       border-radius: 8px;
       transition: border-color 0.2s, background 0.2s;
       user-select: none;
@@ -778,7 +813,7 @@
 
     .checkbox-group label:has(input:checked) {
       border-color: var(--blue);
-      background: rgba(33, 151, 212, 0.06);
+      background: rgba(93, 112, 206, 0.06);
     }
 
     .form-submit {
@@ -825,7 +860,7 @@
 
     /* ===== FOOTER ===== */
     .footer {
-      background: #0d2d4f;
+      background: var(--navy);
       color: rgba(255, 255, 255, 0.7);
       padding: 3rem 1.5rem 2rem;
       text-align: center;
@@ -993,7 +1028,7 @@
         top: 60px;
         left: 0;
         right: 0;
-        background: var(--white);
+        background: var(--blue);
         flex-direction: column;
         padding: 1.5rem;
         gap: 1rem;
@@ -1042,7 +1077,7 @@
   <header class="header" id="top">
     <div class="header-inner">
       <a href="#top" class="logo">
-        <img src="images/logo-white.png" alt="Kyle Smith 4 Fayetteville" width="200" height="125">
+        <img src="images/logo-banner-500.png" alt="Kyle Smith for Fayetteville City Council, Ward 4" width="500" height="146">
       </a>
       <button class="mobile-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav').classList.toggle('open')">
         <span></span><span></span><span></span>
@@ -1065,7 +1100,7 @@
         <h1>A City That Works for Everyone</h1>
         <p class="subtitle">Fayetteville has incredible potential &mdash; and the plans to match it. Now we need leadership that follows through: progressive in our values, conservative with our finances.</p>
         <div class="hero-buttons">
-          <a href="#platform" class="btn btn-gold">See My Plan</a>
+          <a href="#platform" class="btn btn-cta">See My Plan</a>
           <!-- TODO: Replace with GoodChange campaign URL -->
           <a href="https://goodchange.app/donate/kyle4fay?mk=website-13&refcode=home-hero&num=20.26" class="btn btn-outline">Contribute</a>
         </div>
@@ -1279,8 +1314,14 @@
                 <label><input type="checkbox" name="help" value="Other"><span>Other / Anything</span></label>
               </div>
             </div>
-            <div id="turnstile-container" class="cf-turnstile" data-sitekey="0x4AAAAAAEJtW_dIn_FTgcZE" data-size="invisible" data-action="turnstile-spin-v2"></div>
-            <button type="submit" class="btn btn-gold form-submit" id="volunteerSubmit">Count Me In</button>
+            <div class="form-group">
+              <label class="sms-consent">
+                <input type="checkbox" name="sms_consent">
+                <span>By providing your phone number and checking this box, you agree to receive SMS messages from Kyle Smith for Fayetteville City Council. Message frequency varies. Message &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. Donations may be solicited. See our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-cta form-submit" id="volunteerSubmit">Count Me In</button>
             <p class="form-status" id="volunteerStatus" style="margin-top:0.75rem;font-size:0.9rem;text-align:center;display:none;"></p>
           </form>
         </div>
@@ -1294,7 +1335,7 @@
       <h2 class="section-heading">Support the Campaign</h2>
       <p class="donate-text">Municipal races are won at the doors. Your contribution goes directly to voter contact &mdash; door-to-door canvassing, mailers, and digital outreach to reach every voter in Ward 4.</p>
       <!-- TODO: Replace with GoodChange campaign URL when bank account is set up -->
-      <a href="https://goodchange.app/donate/kyle4fay?mk=website-13&refcode=home-donate&num=20.26" class="btn btn-gold btn-donate-large">Contribute to Kyle's Campaign</a>
+      <a href="https://goodchange.app/donate/kyle4fay?mk=website-13&refcode=home-donate&num=20.26" class="btn btn-cta btn-donate-large">Contribute to Kyle's Campaign</a>
       <p class="donate-disclaimer">Paid for by Vote for Kyle Smith</p>
     </div>
   </section>
@@ -1313,6 +1354,7 @@
       <div class="footer-links">
         <a href="mailto:info@kyle4fay.org">info@kyle4fay.org</a>
         <a href="https://www.facebook.com/kyle4fay">Facebook</a>
+        <a href="privacy.html">Privacy Policy</a>
       </div>
       <p class="footer-copy">&copy; 2026 Vote for Kyle Smith. All rights reserved.</p>
     </div>
@@ -1321,6 +1363,10 @@
   <button class="scroll-top" id="scrollTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
 
   <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js';
+    import { initializeAppCheck, ReCaptchaEnterpriseProvider, getToken }
+      from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app-check.js';
+    import { firebaseConfig } from './js/firebase-config.js';
 
     // Scroll-to-top button
     const scrollBtn = document.getElementById('scrollTop');
@@ -1464,7 +1510,7 @@
       });
     });
 
-    // Volunteer form submission via Cloud Function + Turnstile
+    // Volunteer form submission via Cloud Function, gated by Firebase App Check
     const form = document.getElementById('volunteerForm');
     const status = document.getElementById('volunteerStatus');
     const submitBtn = document.getElementById('volunteerSubmit');
@@ -1472,28 +1518,56 @@
 
     const FUNCTION_URL = 'https://us-central1-kyle4fay-2026.cloudfunctions.net/submitVolunteer';
 
+    // reCAPTCHA Enterprise site key. Public by design: it ships in the page and
+    // is bound to this domain in Google Cloud. Enterprise needs no secret here --
+    // App Check calls the reCAPTCHA API with the project's own credentials.
+    const RECAPTCHA_SITE_KEY = '6Lfjs50tAAAAAPCeuE0q6de8lZq3W_2_n4Uf9ySr';
+
+    let appCheck = null;
+    try {
+      appCheck = initializeAppCheck(initializeApp(firebaseConfig), {
+        provider: new ReCaptchaEnterpriseProvider(RECAPTCHA_SITE_KEY),
+        // Keeps the token fresh on a page left open. The previous provider's
+        // token expired after ~5 minutes and submit then read an empty field.
+        isTokenAutoRefreshEnabled: true,
+      });
+    } catch (err) {
+      // This module also runs the nav and platform cards, so a misconfigured
+      // key must degrade the form alone rather than the whole page.
+      console.error('App Check init failed:', err);
+    }
+
+    function showStatus(message, ok) {
+      status.textContent = message;
+      status.style.color = ok ? '#293f8e' : '#c0392b';
+      status.style.display = 'block';
+    }
+
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+    // App Check attests that the request really came from this site. Minting a
+    // token can hang if reCAPTCHA is blocked or the SDK never loads, so it
+    // always races a deadline rather than leaving the button stuck on 'Sending'.
+    async function getAppCheckToken(timeoutMs) {
+      if (!appCheck) throw new Error('app check unavailable');
+      const deadline = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('app check timeout')), timeoutMs));
+      const { token } = await Promise.race([getToken(appCheck, false), deadline]);
+      return token;
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // Honeypot check
       if (form.querySelector('[name="_honey"]').value) return;
 
-      // Timing check — reject submissions faster than 3 seconds
-      if (Date.now() - formLoadedAt < 3000) return;
-
-      // Turnstile token from the invisible widget
-      const turnstileToken = form.querySelector('[name="cf-turnstile-response"]')?.value;
-      if (!turnstileToken) {
-        status.textContent = 'Please wait a moment and try again.';
-        status.style.color = '#c0392b';
-        status.style.display = 'block';
-        return;
-      }
-
       const name = form.querySelector('[name="name"]').value.trim();
       const email = form.querySelector('[name="email"]').value.trim();
       const phone = form.querySelector('[name="phone"]').value.trim();
       const roles = [...form.querySelectorAll('input[name="help"]:checked')].map(cb => cb.value);
+      // Deliberately unchecked by default: a pre-ticked box is not valid consent.
+      const smsConsent = form.querySelector('[name="sms_consent"]').checked;
 
       if (!name || !email || !roles.length) return;
 
@@ -1502,35 +1576,46 @@
       status.style.display = 'none';
 
       try {
+        // Bot-timing check. This used to drop the submission on the floor with no
+        // feedback, so a fast or autofilling human just saw a dead button.
+        const elapsed = Date.now() - formLoadedAt;
+        if (elapsed < 3000) await sleep(3000 - elapsed);
+
+        let appCheckToken;
+        try {
+          appCheckToken = await getAppCheckToken(15000);
+        } catch (err) {
+          console.error('App Check unavailable:', err);
+          showStatus('Verification is unavailable right now. Please email volunteer@kyle4fay.org and we\'ll sign you up.', false);
+          return;
+        }
+
         const res = await fetch(FUNCTION_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, phone, roles, turnstileToken }),
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Firebase-AppCheck': appCheckToken,
+          },
+          body: JSON.stringify({ name, email, phone, roles, smsConsent }),
         });
 
-        if (res.status === 403) {
-          status.textContent = 'Verification failed. Please refresh and try again.';
-          status.style.color = '#c0392b';
-          status.style.display = 'block';
+        if (res.status === 401 || res.status === 403) {
+          showStatus('Verification failed. Please refresh and try again.', false);
           return;
         }
 
         if (!res.ok) throw new Error(`Server error ${res.status}`);
 
-        status.textContent = 'Thank you! We\'ll be in touch soon.';
-        status.style.color = '#15477a';
-        status.style.display = 'block';
+        showStatus('Thank you! We\'ll be in touch soon.', true);
         form.reset();
       } catch (err) {
         console.error('Form submission error:', err);
-        status.textContent = 'Something went wrong. Please email volunteer@kyle4fay.org instead.';
-        status.style.color = '#c0392b';
-        status.style.display = 'block';
+        showStatus('Something went wrong. Please email volunteer@kyle4fay.org instead.', false);
       } finally {
+        // App Check tokens are reusable and auto-refreshed, so there is nothing
+        // to reset here the way a single-use CAPTCHA token would need.
         submitBtn.disabled = false;
         submitBtn.textContent = 'Count Me In';
-        // Reset Turnstile for retry — tokens are single-use
-        if (window.turnstile) turnstile.reset('#turnstile-container');
       }
     });
   </script>

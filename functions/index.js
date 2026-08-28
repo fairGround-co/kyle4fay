@@ -1,10 +1,13 @@
 const { onRequest } = require("firebase-functions/v2/https");
-const { defineSecret } = require("firebase-functions/params");
 const { initializeApp } = require("firebase-admin/app");
 const { getFirestore, FieldValue } = require("firebase-admin/firestore");
 const { getAuth } = require("firebase-admin/auth");
+const { getAppCheck } = require("firebase-admin/app-check");
 
-const turnstileSecret = defineSecret("TURNSTILE_SECRET");
+// Bumped whenever the SMS disclaimer wording on the form changes. Stored with
+// each consent so a carrier audit can be answered with the exact text the
+// person agreed to, rather than whatever the form says today.
+const SMS_CONSENT_VERSION = "2026-08-28";
 
 let db;
 function ensureApp() {
@@ -32,7 +35,7 @@ function emailToDocId(email) {
 }
 
 exports.submitVolunteer = onRequest(
-  { cors: ["https://kyle4fay.org", "http://localhost:3000"], secrets: [turnstileSecret] },
+  { cors: ["https://kyle4fay.org", "http://localhost:3000"] },
   async (req, res) => {
     ensureApp();
 
@@ -41,36 +44,31 @@ exports.submitVolunteer = onRequest(
       return;
     }
 
-    const { name, email, phone, roles, turnstileToken } = req.body;
+    const { name, email, phone, roles } = req.body;
+    const smsConsent = req.body.smsConsent === true;
 
-    if (!name || !email || !roles || !roles.length || !turnstileToken) {
+    if (!name || !email || !roles || !roles.length) {
       res.status(400).send("missing required fields");
       return;
     }
 
-    // Canonical Turnstile siteverify
     // On Cloud Functions gen2 the client IP is the first X-Forwarded-For hop.
     const clientIp = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.ip;
-    let result;
-    try {
-      const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          secret: process.env.TURNSTILE_SECRET,
-          response: turnstileToken,
-          remoteip: clientIp,
-        }),
-      });
-      if (!r.ok) throw new Error(`siteverify ${r.status}`);
-      result = await r.json();
-    } catch (err) {
-      console.error("Turnstile siteverify error:", err);
-      res.status(403).send("forbidden");
+
+    // App Check attestation. These are onRequest (not onCall) handlers, so
+    // enforcement is ours to do: the header is verified explicitly rather than
+    // by the enforceAppCheck option that callable functions get for free.
+    const appCheckToken = req.headers["x-firebase-appcheck"];
+    if (!appCheckToken) {
+      res.status(401).send("unauthorized");
       return;
     }
-    if (!result.success) {
-      console.warn("Turnstile rejected:", result["error-codes"]);
+
+    let appCheckClaims;
+    try {
+      appCheckClaims = await getAppCheck().verifyToken(appCheckToken);
+    } catch (err) {
+      console.warn("App Check verification failed:", err.message);
       res.status(403).send("forbidden");
       return;
     }
@@ -81,8 +79,8 @@ exports.submitVolunteer = onRequest(
 
     // Audit trail. Attached per-submission rather than to the contact, so a
     // repeat signup appends a new record instead of overwriting the old one.
-    // `verification` is Cloudflare's own attestation of the challenge that
-    // gated this write — challenge_ts is Cloudflare's clock, not ours.
+    // `verification` records the App Check attestation that gated this write.
+    // issued_at comes from the token itself (Google's clock), not ours.
     const activityEntry = {
       source: "volunteer_form",
       timestamp: new Date().toISOString(),
@@ -90,11 +88,14 @@ exports.submitVolunteer = onRequest(
       ip: clientIp || "",
       user_agent: String(req.headers["user-agent"] || "").slice(0, 512),
       referer: String(req.headers["referer"] || "").slice(0, 512),
+      sms_consent: smsConsent,
+      sms_consent_version: smsConsent ? SMS_CONSENT_VERSION : "",
       verification: {
-        provider: "turnstile",
-        challenge_ts: result.challenge_ts || "",
-        hostname: result.hostname || "",
-        action: result.action || "",
+        provider: "firebase_app_check",
+        app_id: appCheckClaims.appId || "",
+        issued_at: appCheckClaims.token?.iat
+          ? new Date(appCheckClaims.token.iat * 1000).toISOString()
+          : "",
       },
     };
 
@@ -107,6 +108,9 @@ exports.submitVolunteer = onRequest(
       activity: FieldValue.arrayUnion(activityEntry),
       tags: FieldValue.arrayUnion("volunteer"),
       volunteer_roles: FieldValue.arrayUnion(...roles),
+      // Latest submission wins, so unchecking the box on a resubmit revokes
+      // consent. The full history stays in `activity` for audit purposes.
+      sms_consent: smsConsent,
     };
 
     if (phone) {
@@ -192,6 +196,8 @@ exports.listContacts = onRequest(
           roles: d.volunteer_roles || [],
           tags: d.tags || [],
           status: d.status || "",
+          // Staff need this before any texting run: no consent, no SMS.
+          sms_consent: d.sms_consent === true,
           created_at: d.created_at ? d.created_at.toDate().toISOString() : null,
           // IP is deliberately withheld: this list is shared with media staff
           // who need contact details, not identifiers for political activity.

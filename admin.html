@@ -5,17 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Volunteer Signups — Kyle Smith for Ward 4</title>
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
-    --navy: #15477a;
-    --blue: #2197d4;
-    --gold: #ffc20e;
-    --bg: #f5f7fa;
-    --line: #e0e4ea;
+    /* Rebrand 2026 -- kept in step with the tokens in index.html. The Google
+       sign-in button below deliberately keeps Google's own brand colours. */
+    --navy: #293f8e;
+    --blue: #5d70ce;
+    --gold: #f7bf0b;
+    --orange: #fc7506;
+    --cream: #fff2e3;
+    --bg: #faf5ee;
+    --line: #e5e0d8;
     --muted: #6b7684;
   }
   body {
@@ -133,7 +140,7 @@
       <table>
         <thead>
           <tr>
-            <th>Name</th><th>Email</th><th>Phone</th><th>Wants to help with</th><th>Signed up</th><th>Browser</th><th>Came from</th>
+            <th>Name</th><th>Email</th><th>Phone</th><th>SMS OK</th><th>Wants to help with</th><th>Signed up</th><th>Browser</th><th>Came from</th>
           </tr>
         </thead>
         <tbody id="rows"></tbody>
@@ -168,6 +175,7 @@ function render(list) {
       <td>${esc(c.name)}</td>
       <td><a href="mailto:${esc(c.email)}">${esc(c.email)}</a></td>
       <td>${esc(c.phone)}</td>
+      <td class="sms" title="${c.sms_consent ? 'Opted in to SMS' : 'No SMS consent on file -- do not text'}">${c.sms_consent ? 'Yes' : '--'}</td>
       <td class="roles">${esc(c.roles.join(', '))}</td>
       <td class="date">${fmtDate(c.created_at)}</td>
       <td class="meta" title="${esc(c.user_agent)}">${esc(shortUA(c.user_agent))}</td>
@@ -287,9 +295,10 @@ $('csvBtn').addEventListener('click', () => {
   // Full user agent and referrer here, not the abbreviated display forms --
   // the export is the audit artifact.
   const csv = [
-    ['Name', 'Email', 'Phone', 'Roles', 'Signed Up', 'User Agent', 'Referrer'].join(','),
+    ['Name', 'Email', 'Phone', 'SMS Consent', 'Roles', 'Signed Up', 'User Agent', 'Referrer'].join(','),
     ...contacts.map(c => [
       cell(c.name), cell(c.email), cell(c.phone),
+      cell(c.sms_consent ? 'yes' : 'no'),
       cell(c.roles.join('; ')), cell(c.created_at),
       cell(c.user_agent), cell(c.referer)
     ].join(','))
