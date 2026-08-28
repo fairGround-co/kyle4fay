@@ -205,7 +205,9 @@
       border: 4px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       object-fit: cover;
-      object-position: center 20%;
+      /* The file is pre-cropped to 3:4, so cover has nothing left to trim and
+         the framing no longer depends on nudging object-position by hand. */
+      object-position: center;
       aspect-ratio: 3 / 4;
     }
 
@@ -1106,8 +1108,7 @@
         </div>
       </div>
       <div class="hero-photo">
-        <!-- ASSET NEEDED: 2026 campaign headshot. Using interim photo. -->
-        <img src="images/headshot.jpg" alt="Kyle Smith, candidate for Fayetteville City Council Ward 4" loading="eager">
+        <img src="images/headshot-2026.jpg" alt="Kyle Smith, candidate for Fayetteville City Council Ward 4" width="900" height="1200" loading="eager">
       </div>
     </div>
   </section>
