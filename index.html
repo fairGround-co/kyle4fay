@@ -196,19 +196,23 @@
     .hero-photo {
       display: flex;
       justify-content: center;
+      /* Without this the img is a stretch-aligned flex item, so its height is
+         taken from the flex line instead of its own ratio -- which is what was
+         pulling the portrait tall. */
+      align-items: center;
     }
 
     .hero-photo img {
+      display: block;
       width: 100%;
       max-width: 380px;
+      /* The file is already cropped to 3:4, so it just renders at its own
+         ratio. No aspect-ratio or object-fit: with nothing to crop, that
+         machinery could only ever distort the framing, never improve it. */
+      height: auto;
       border-radius: 16px;
       border: 4px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      object-fit: cover;
-      /* The file is pre-cropped to 3:4, so cover has nothing left to trim and
-         the framing no longer depends on nudging object-position by hand. */
-      object-position: center;
-      aspect-ratio: 3 / 4;
     }
 
     .btn {
