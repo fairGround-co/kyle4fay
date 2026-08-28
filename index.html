@@ -171,6 +171,17 @@
       text-align: left;
     }
 
+    .hero-logo {
+      display: block;
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      /* The banner carries its own periwinkle ground, so round the corners to
+         read as a deliberate plate on the gradient, not a stray rectangle. */
+      border-radius: 10px;
+      margin-bottom: 1.75rem;
+    }
+
     .hero h1 {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: clamp(2.2rem, 5vw, 3.2rem);
@@ -182,9 +193,33 @@
     .hero .subtitle {
       font-size: clamp(1rem, 2vw, 1.15rem);
       opacity: 0.9;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       font-weight: 400;
       line-height: 1.7;
+    }
+
+    .hero-dates {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2.25rem;
+      margin-bottom: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 242, 227, 0.22);
+    }
+
+    .hero-dates-label {
+      display: block;
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      margin-bottom: 0.15rem;
+    }
+
+    .hero-dates time {
+      font-size: 0.95rem;
+      font-weight: 600;
     }
 
     .hero-buttons {
@@ -1103,8 +1138,20 @@
   <section class="hero" id="hero">
     <div class="hero-content">
       <div class="hero-text">
+        <img class="hero-logo" src="images/logo-banner-hero.png" alt="Kyle Smith for Fayetteville City Council, Ward 4" width="840" height="246" loading="eager">
         <h1>A City That Works for Everyone</h1>
         <p class="subtitle">Fayetteville has incredible potential &mdash; and the plans to match it. Now we need leadership that follows through: progressive in our values, conservative with our finances.</p>
+        <div class="hero-dates">
+          <div>
+            <span class="hero-dates-label">Election Day</span>
+            <time datetime="2026-11-03">Tuesday, November 3, 2026</time>
+          </div>
+          <div>
+            <span class="hero-dates-label">Early voting begins</span>
+            <time datetime="2026-10-19">Monday, October 19, 2026</time>
+          </div>
+        </div>
+
         <div class="hero-buttons">
           <a href="#platform" class="btn btn-cta">See My Plan</a>
           <!-- TODO: Replace with GoodChange campaign URL -->
