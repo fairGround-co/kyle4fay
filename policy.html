@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policy Papers | Kyle Smith for Fayetteville City Council</title>
+  <meta name="description" content="Detailed policy proposals from Kyle Smith, candidate for Fayetteville City Council, Ward 4, organized by platform issue.">
+  <meta property="og:title" content="Policy Papers | Kyle Smith for Fayetteville City Council">
+  <meta property="og:description" content="Detailed policy proposals from Kyle Smith, organized by platform issue.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kyle4fay.org/policy.html">
+  <meta property="og:image" content="https://kyle4fay.org/images/og-image.jpg">
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="canonical" href="https://kyle4fay.org/policy.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Rebrand 2026 -- kept in step with the tokens in index.html. */
+      --navy: #293f8e;
+      --blue: #5d70ce;
+      --gold: #f7bf0b;
+      --orange: #fc7506;
+      --orange-dark: #d96105;
+      --cream: #fff2e3;
+      --white: #ffffff;
+      --light-gray: #faf5ee;
+      --text-dark: #1a1a2e;
+      --text-muted: #555;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-dark);
+      background: var(--light-gray);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      background: var(--blue);
+      padding: 1rem 1.5rem;
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .header img { display: block; height: auto; max-width: 100%; }
+    .header a.back {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 2px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.25rem;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .intro {
+      color: var(--text-muted);
+      max-width: 62ch;
+      margin-bottom: 2.5rem;
+    }
+    .intro a { color: var(--navy); font-weight: 600; }
+
+    .category { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+    .category-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .category-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .category h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      line-height: 1.25;
+    }
+
+    .papers { display: grid; gap: 1.25rem; }
+
+    .paper {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 16px rgba(41, 63, 142, 0.07);
+    }
+    .paper h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.35;
+    }
+    .paper .subtitle {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin: 0.2rem 0 1rem;
+    }
+    .paper p { font-size: 0.95rem; margin-bottom: 1rem; }
+    .paper .label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .paper ul { margin: 0 0 1.25rem 1.25rem; }
+    .paper li { font-size: 0.92rem; margin-bottom: 0.4rem; }
+
+    .btn-read {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .btn-read:hover { background: var(--orange-dark); }
+
+    .footer {
+      background: var(--navy);
+      color: var(--white);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+    }
+    .footer a { color: var(--gold); }
+    .footer p { margin-bottom: 0.4rem; color: var(--white); font-size: 0.85rem; }
+
+    @media (max-width: 600px) {
+      .paper { padding: 1.5rem; }
+      h1 { font-size: 1.75rem; }
+      main { margin: 1.5rem auto; padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html"><img src="images/logo-banner-500.png" alt="Kyle Smith for Fayetteville City Council, Ward 4" width="500" height="146"></a>
+      <a href="index.html#platform" class="back">&larr; Back to the platform</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Policy Papers</h1>
+    <p class="intro">The details matter...  The platform is the short version.  These papers are where I work out how an idea would actually change our code, and who ends up paying for it.  I'm a process nerd, so expect more of them.  Have a question, an idea, or think of something I missed?  <a href="index.html#contact">Let me know</a>.</p>
+
+    <!-- Each category's id matches the data-plank key on index.html, so a tile
+         can link straight to policy.html#<key>. Add a category only once it
+         has at least one paper. -->
+    <section class="category" id="sustainability">
+      <div class="category-head">
+        <span class="category-num">07</span>
+        <h2>Sustainability &amp; Green Space</h2>
+      </div>
+      <div class="papers">
+
+        <article class="paper">
+          <h3>Activating the Enduring Green Network</h3>
+          <p class="subtitle">A market-driven strategy for urban nature preservation and smart density</p>
+          <p>City Plan 2040 maps an Enduring Green Network of stream corridors, steep Ozark hillsides, and forests, but the map has no legal force. This proposal gives it a purpose through a voluntary Transfer of Development Rights program: developers pay EGN landowners to protect their land permanently, and in return build more homes in growth centers the city has already chosen. No tax dollars go to buying land.</p>
+          <p class="label">Key proposals</p>
+          <ul>
+            <li>EGN land becomes a voluntary &ldquo;sending zone,&rdquo; with more credits per acre for high-value land such as steep forest and headwater wetlands.</li>
+            <li>Growth centers become &ldquo;receiving zones&rdquo; where credits unlock extra height, reduced parking minimums, or missing-middle housing.</li>
+            <li>An EGN escrow fund and annual reverse auction serve as a backup market, and a 5% stewardship fee pays for long-term land care.</li>
+          </ul>
+          <a href="media/policy/enduring-green-network.pdf" class="btn-read" target="_blank" rel="noopener">Read the full paper (PDF)</a>
+        </article>
+
+        <article class="paper">
+          <h3>Strengthening Tree Preservation Standards</h3>
+          <p class="subtitle">Encouraging efficient land use and growing a healthier urban forest</p>
+          <p>Updates to the tree rules in Fayetteville&rsquo;s Unified Development Code, with a focus on making sure required trees actually survive. Yard tree requirements scale with lot size, large existing trees get new protections, and missing-middle housing stays practical to build.</p>
+          <p class="label">Key proposals</p>
+          <ul>
+            <li>Require enough uncompacted soil for trees to establish roots, not just packing them in red clay and hoping for the best.</li>
+            <li>Scale yard tree requirements to lot size, with credits for preserving large, healthy trees.</li>
+            <li>Extend survival bonds to 5 years with a 24-month interim inspection, funded by a dedicated inspection fee.</li>
+            <li>Protect mature trees on existing lots through a 7-day notice period, preservation grants, and professional support for homeowners.</li>
+          </ul>
+          <a href="media/policy/tree-preservation-urban-forestry.pdf" class="btn-read" target="_blank" rel="noopener">Read the full paper (PDF)</a>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Kyle Smith for Fayetteville City Council &middot; Ward 4, Position 1</p>
+    <p>Paid for by Vote for Kyle Smith</p>
+    <p><a href="index.html">kyle4fay.org</a> &middot; <a href="privacy.html">Privacy Policy</a></p>
+  </footer>
+
+</body>
+</html>

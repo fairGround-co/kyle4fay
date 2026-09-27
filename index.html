@@ -443,6 +443,21 @@
       margin-top: 0.75rem;
     }
 
+    /* Link out to policy.html. Sits inside a clickable card, so the card's
+       click handler ignores clicks that land on it. */
+    .plank-card .plank-papers {
+      display: block;
+      width: fit-content;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--navy);
+      text-decoration: none;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 1px;
+      margin-top: 0.6rem;
+    }
+    .plank-card .plank-papers:hover { color: var(--orange-dark); }
+
     .platform-detail {
       grid-column: 2 / 4;
       background: var(--blue);
@@ -863,6 +878,48 @@
       font-size: 1rem;
     }
 
+    /* ===== CONTACT ===== */
+    .contact {
+      background: var(--white);
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+
+    .contact-text {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+    }
+
+    .contact-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 3rem;
+    }
+
+    .contact-list .contact-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-list a {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      border-bottom: 2px solid var(--gold);
+      overflow-wrap: anywhere;
+    }
+
+    .contact-list a:hover { color: var(--orange-dark); }
+
     /* ===== DONATE ===== */
     .donate {
       background: var(--navy);
@@ -1126,6 +1183,7 @@
       <nav class="nav">
         <a href="#about">About</a>
         <a href="#platform">Platform</a>
+        <a href="policy.html">Policy Papers</a>
         <a href="#news">News</a>
         <a href="#involved">Get Involved</a>
         <!-- TODO: Replace with GoodChange campaign URL -->
@@ -1263,6 +1321,7 @@
           <h3>Sustainability &amp; Green Space</h3>
           <p>Sustainability and fiscal responsibility are the same argument. Compact development preserves more green space than sprawl and costs less to serve.</p>
           <span class="plank-cta">What I'll do &rarr;</span>
+          <a href="policy.html#sustainability" class="plank-papers">Read the policy papers (2)</a>
           <div class="plank-accordion-detail"></div>
         </div>
 
@@ -1378,6 +1437,18 @@
           </form>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section contact" id="contact">
+    <div class="section-inner">
+      <h2 class="section-heading">Contact Kyle</h2>
+      <p class="contact-text">Questions, ideas, or something happening on your street I should know about?  Reach me directly.</p>
+      <ul class="contact-list">
+        <li><span class="contact-label">Email</span><a href="mailto:kyle.smith@kyle4fay.org">kyle.smith@kyle4fay.org</a></li>
+        <li><span class="contact-label">Call or text</span><a href="tel:+14794424175">479-442-4175</a></li>
+      </ul>
     </div>
   </section>
 
@@ -1516,7 +1587,8 @@
     }
 
     document.querySelectorAll('.plank-card').forEach(card => {
-      card.addEventListener('click', () => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.plank-papers')) return;
         const key = card.dataset.plank;
         const data = plankData[key];
         const itemsHtml = data.items.map(item => '<li>' + item + '</li>').join('');
