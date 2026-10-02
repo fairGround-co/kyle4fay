@@ -140,7 +140,7 @@
       <table>
         <thead>
           <tr>
-            <th>Name</th><th>Email</th><th>Phone</th><th>SMS OK</th><th>Wants to help with</th><th>Signed up</th><th>Browser</th><th>Came from</th>
+            <th>Name</th><th>Email</th><th>Phone</th><th>SMS OK</th><th>Wants to help with</th><th>Sign address</th><th>Signed up</th><th>Browser</th><th>Came from</th>
           </tr>
         </thead>
         <tbody id="rows"></tbody>
@@ -177,6 +177,7 @@ function render(list) {
       <td>${esc(c.phone)}</td>
       <td class="sms" title="${c.sms_consent ? 'Opted in to SMS' : 'No SMS consent on file -- do not text'}">${c.sms_consent ? 'Yes' : '--'}</td>
       <td class="roles">${esc(c.roles.join(', '))}</td>
+      <td class="roles">${esc(c.sign_address || '')}</td>
       <td class="date">${fmtDate(c.created_at)}</td>
       <td class="meta" title="${esc(c.user_agent)}">${esc(shortUA(c.user_agent))}</td>
       <td class="meta" title="${esc(c.referer)}">${esc(shortRef(c.referer))}</td>
@@ -285,7 +286,7 @@ $('outBtn').addEventListener('click', async () => {
 $('filter').addEventListener('input', e => {
   const q = e.target.value.toLowerCase().trim();
   render(!q ? contacts : contacts.filter(c => [
-    c.name, c.email, c.roles.join(' '),
+    c.name, c.email, c.roles.join(' '), c.sign_address || '',
     shortUA(c.user_agent), shortRef(c.referer)
   ].join(' ').toLowerCase().includes(q)));
 });
@@ -295,11 +296,11 @@ $('csvBtn').addEventListener('click', () => {
   // Full user agent and referrer here, not the abbreviated display forms --
   // the export is the audit artifact.
   const csv = [
-    ['Name', 'Email', 'Phone', 'SMS Consent', 'Roles', 'Signed Up', 'User Agent', 'Referrer'].join(','),
+    ['Name', 'Email', 'Phone', 'SMS Consent', 'Roles', 'Sign Address', 'Signed Up', 'User Agent', 'Referrer'].join(','),
     ...contacts.map(c => [
       cell(c.name), cell(c.email), cell(c.phone),
       cell(c.sms_consent ? 'yes' : 'no'),
-      cell(c.roles.join('; ')), cell(c.created_at),
+      cell(c.roles.join('; ')), cell(c.sign_address || ''), cell(c.created_at),
       cell(c.user_agent), cell(c.referer)
     ].join(','))
   ].join('\n');

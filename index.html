@@ -872,6 +872,18 @@
       background: rgba(93, 112, 206, 0.06);
     }
 
+    /* Yard-sign address. Hidden until the sign box is ticked so the form stays
+       short for everyone else; shown with a hint so people know why we ask. */
+    .form-group.sign-address { display: none; }
+    .form-group.sign-address.is-visible { display: block; }
+    .form-group .field-hint {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
     .form-submit {
       width: 100%;
       padding: 0.85rem;
@@ -1425,6 +1437,11 @@
                 <label><input type="checkbox" name="help" value="Other"><span>Other / Anything</span></label>
               </div>
             </div>
+            <div class="form-group sign-address" id="vol-sign-address">
+              <label for="vol-address">Yard sign delivery address</label>
+              <input type="text" id="vol-address" name="address" autocomplete="street-address" placeholder="123 Main St, Fayetteville, AR 72704">
+              <span class="field-hint">We hand-deliver signs in Ward 4. Street address, city, and ZIP please.</span>
+            </div>
             <div class="form-group">
               <label class="sms-consent">
                 <input type="checkbox" name="sms_consent">
@@ -1680,6 +1697,22 @@
       return token;
     }
 
+    // The address field only matters (and is only required) for sign hosts.
+    const signBox = form.querySelector('input[name="help"][value="Host a Yard Sign"]');
+    const addressGroup = document.getElementById('vol-sign-address');
+    const addressInput = form.querySelector('[name="address"]');
+    function syncAddressField() {
+      const wantsSign = signBox.checked;
+      addressGroup.classList.toggle('is-visible', wantsSign);
+      addressInput.required = wantsSign;
+      if (!wantsSign) addressInput.value = '';
+    }
+    form.addEventListener('change', (e) => {
+      if (e.target === signBox) syncAddressField();
+    });
+    form.addEventListener('reset', () => setTimeout(syncAddressField, 0));
+    syncAddressField();
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -1690,10 +1723,16 @@
       const email = form.querySelector('[name="email"]').value.trim();
       const phone = form.querySelector('[name="phone"]').value.trim();
       const roles = [...form.querySelectorAll('input[name="help"]:checked')].map(cb => cb.value);
+      const address = signBox.checked ? addressInput.value.trim() : '';
       // Deliberately unchecked by default: a pre-ticked box is not valid consent.
       const smsConsent = form.querySelector('[name="sms_consent"]').checked;
 
       if (!name || !email || !roles.length) return;
+      if (signBox.checked && !address) {
+        showStatus('Please add a delivery address so we can bring your sign.', false);
+        addressInput.focus();
+        return;
+      }
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
@@ -1720,7 +1759,7 @@
             'Content-Type': 'application/json',
             'X-Firebase-AppCheck': appCheckToken,
           },
-          body: JSON.stringify({ name, email, phone, roles, smsConsent }),
+          body: JSON.stringify({ name, email, phone, roles, address, smsConsent }),
         });
 
         if (res.status === 401 || res.status === 403) {
