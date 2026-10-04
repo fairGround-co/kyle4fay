@@ -52,6 +52,15 @@ exports.submitVolunteer = onRequest(
       return;
     }
 
+    // A yard sign is hand-delivered, so the request is useless without an
+    // address. Other roles never need one and any value sent is dropped.
+    const wantsSign = roles.includes("Host a Yard Sign");
+    const address = wantsSign ? String(req.body.address || "").trim().slice(0, 300) : "";
+    if (wantsSign && !address) {
+      res.status(400).send("address required for yard sign");
+      return;
+    }
+
     // On Cloud Functions gen2 the client IP is the first X-Forwarded-For hop.
     const clientIp = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.ip;
 
@@ -85,6 +94,7 @@ exports.submitVolunteer = onRequest(
       source: "volunteer_form",
       timestamp: new Date().toISOString(),
       volunteerRole: roles.join(", "),
+      sign_address: address,
       ip: clientIp || "",
       user_agent: String(req.headers["user-agent"] || "").slice(0, 512),
       referer: String(req.headers["referer"] || "").slice(0, 512),
@@ -115,6 +125,10 @@ exports.submitVolunteer = onRequest(
 
     if (phone) {
       data.phone = normalizePhone(phone);
+    }
+    if (address) {
+      // Latest request wins; earlier addresses stay in `activity`.
+      data.sign_address = address;
     }
 
     try {
@@ -194,6 +208,7 @@ exports.listContacts = onRequest(
           email: d.email || "",
           phone: d.phone || "",
           roles: d.volunteer_roles || [],
+          sign_address: d.sign_address || "",
           tags: d.tags || [],
           status: d.status || "",
           // Staff need this before any texting run: no consent, no SMS.
