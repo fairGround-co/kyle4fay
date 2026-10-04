@@ -193,14 +193,15 @@ Pure validation in `functions/forms_schema.py` with unit tests; deploy entry in
 
 ## 7. kyle4fay migration
 
-1. Ship the interim yard-sign address change (done in this repo).
-2. When the module is live: replace the form card with the widget tag (done 2026-10-02,
-   branch gainground-widget). HOLD the deletions of `functions/`, `admin.html`,
-   `js/firebase-config.js`, `firestore.rules` and retiring project kyle4fay-2026 until the
-   review queue (gainground#1720) and the batch import (gainground#1724) exist, so the
-   existing contact list stays reachable in the meantime.
-3. One-time import of existing `contacts` docs (with activity audit entries) into
-   `form_submissions` as a batch, through the same matcher and queue.
+1. Interim yard-sign address change shipped (fairGround-co/kyle4fay#3, merged 2026-10-04).
+2. Form card replaced with the widget tag (fairGround-co/kyle4fay#5, merged 2026-10-04,
+   after the review queue gainground#1720 went live).
+3. Batch import gainground#1724 ran 2026-10-04: 9 kyle4fay-2026 `contacts` docs, 10 activity
+   entries, 10 `form_submissions` written as `source: legacy_import`, all pending review.
+   Counts reconciled exactly. kyle4fay-2026 was read only.
+4. Site backend removed from this repo (functions/, admin.html, firestore.rules,
+   firebase.json, js/firebase-config.js). The kyle4fay-2026 Firebase project itself is kept
+   until Kyle has reviewed the 10 imported submissions in the queue, then retired by Kyle.
 
 ## 8. gainGround work items (suggested issues)
 
