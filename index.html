@@ -775,119 +775,16 @@
       margin-bottom: 1.25rem;
     }
 
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 0.4rem;
-    }
-    /* Overrides the bold navy .form-group label above: consent copy is fine
-       print, and carriers require it be legible rather than styled as a heading. */
-    .form-group label.sms-consent {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      font-size: 0.78rem;
-      font-weight: 400;
-      line-height: 1.5;
-      color: var(--text-muted);
-      cursor: pointer;
-      margin-bottom: 0;
-    }
-    .sms-consent input {
-      flex-shrink: 0;
-      width: 1rem;
-      height: 1rem;
-      margin-top: 0.15rem;
-      accent-color: var(--navy);
-    }
-    .sms-consent a {
-      color: var(--navy);
-      text-decoration: underline;
-    }
-
-    .form-group input[type="text"],
-    .form-group input[type="email"],
-    .form-group input[type="tel"] {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 2px solid #e5e0d8;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-family: inherit;
-      transition: border-color 0.2s;
-      background: var(--white);
-    }
-
-    .form-group input[type="text"]:focus,
-    .form-group input[type="email"]:focus,
-    .form-group input[type="tel"]:focus {
-      outline: none;
-      border-color: var(--blue);
-    }
-
-    .checkbox-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .checkbox-group label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-      font-weight: 400;
-      color: var(--text-dark);
-      cursor: pointer;
-      padding: 0.4rem 0.75rem;
-      border: 2px solid #e5e0d8;
-      border-radius: 8px;
-      transition: border-color 0.2s, background 0.2s;
-      user-select: none;
-    }
-
-    .checkbox-group label:hover {
-      border-color: var(--blue);
-    }
-
-    .checkbox-group input[type="checkbox"] {
-      accent-color: var(--blue);
-      width: 1rem;
-      height: 1rem;
-    }
-
-    .checkbox-group input[type="checkbox"]:checked + span {
-      color: var(--navy);
-      font-weight: 600;
-    }
-
-    .checkbox-group label:has(input:checked) {
-      border-color: var(--blue);
-      background: rgba(93, 112, 206, 0.06);
-    }
-
-    /* Yard-sign address. Hidden until the sign box is ticked so the form stays
-       short for everyone else; shown with a hint so people know why we ask. */
-    .form-group.sign-address { display: none; }
-    .form-group.sign-address.is-visible { display: block; }
-    .form-group .field-hint {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 400;
-      color: var(--text-muted);
-      margin-top: 0.35rem;
-    }
-
-    .form-submit {
-      width: 100%;
-      padding: 0.85rem;
-      font-size: 1rem;
+    /* gainGround widget theme tokens: the only styling hooks the widget exposes. */
+    #gg-form {
+      --gg-accent: var(--blue);
+      --gg-accent-text: var(--white);
+      --gg-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --gg-radius: 8px;
+      --gg-field-border: #e5e0d8;
+      --gg-text: var(--text-dark);
+      --gg-muted: var(--text-muted);
+      --gg-bg: var(--white);
     }
 
     /* ===== CONTACT ===== */
@@ -1411,47 +1308,11 @@
         </div>
         <div class="form-card">
           <h3>Sign Up to Volunteer</h3>
-          <form id="volunteerForm">
-            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-
-            <div class="form-group">
-              <label for="vol-name">Name</label>
-              <input type="text" id="vol-name" name="name" required placeholder="Your full name">
-            </div>
-            <div class="form-group">
-              <label for="vol-email">Email</label>
-              <input type="email" id="vol-email" name="email" required placeholder="you@example.com">
-            </div>
-            <div class="form-group">
-              <label for="vol-phone">Phone <span style="font-weight:400;color:var(--text-muted);">(optional)</span></label>
-              <input type="tel" id="vol-phone" name="phone" placeholder="(479) 555-1234">
-            </div>
-            <div class="form-group">
-              <label>How can you help? <span style="font-weight:400;color:var(--text-muted);">(check all that apply)</span></label>
-              <div class="checkbox-group" id="vol-help">
-                <label><input type="checkbox" name="help" value="Knock Doors"><span>Knock Doors</span></label>
-                <label><input type="checkbox" name="help" value="Make Phone Calls"><span>Make Phone Calls</span></label>
-                <label><input type="checkbox" name="help" value="Host a Yard Sign"><span>Host a Yard Sign</span></label>
-                <label><input type="checkbox" name="help" value="Host a House Party"><span>Host a House Party</span></label>
-                <label><input type="checkbox" name="help" value="Spread the Word"><span>Spread the Word</span></label>
-                <label><input type="checkbox" name="help" value="Other"><span>Other / Anything</span></label>
-              </div>
-            </div>
-            <div class="form-group sign-address" id="vol-sign-address">
-              <label for="vol-address">Yard sign delivery address</label>
-              <input type="text" id="vol-address" name="address" autocomplete="street-address" placeholder="123 Main St, Fayetteville, AR 72704">
-              <span class="field-hint">We hand-deliver signs in Ward 4. Street address, city, and ZIP please.</span>
-            </div>
-            <div class="form-group">
-              <label class="sms-consent">
-                <input type="checkbox" name="sms_consent">
-                <span>By providing your phone number and checking this box, you agree to receive SMS messages from Kyle Smith for Fayetteville City Council. Message frequency varies. Message &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. Donations may be solicited. See our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
-              </label>
-            </div>
-
-            <button type="submit" class="btn btn-cta form-submit" id="volunteerSubmit">Count Me In</button>
-            <p class="form-status" id="volunteerStatus" style="margin-top:0.75rem;font-size:0.9rem;text-align:center;display:none;"></p>
-          </form>
+          <!-- Volunteer form is served by gainGround. The widget renders into
+               Shadow DOM and is styled only through the --gg-* tokens below. -->
+          <div id="gg-form"></div>
+          <script async src="https://gainground-outreach.web.app/embed/v1.js" data-form="VI4UCpmbTJoPA0H_NZycTg" data-target="#gg-form"></script>
+          <noscript><p>The signup form needs JavaScript. Having trouble? Email <a href="mailto:volunteer@kyle4fay.org">volunteer@kyle4fay.org</a></p></noscript>
         </div>
       </div>
     </div>
@@ -1503,10 +1364,6 @@
   <button class="scroll-top" id="scrollTop" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
 
   <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js';
-    import { initializeAppCheck, ReCaptchaEnterpriseProvider, getToken }
-      from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app-check.js';
-    import { firebaseConfig } from './js/firebase-config.js';
 
     // Scroll-to-top button
     const scrollBtn = document.getElementById('scrollTop');
@@ -1649,137 +1506,6 @@
       link.addEventListener('click', () => {
         document.querySelector('.nav').classList.remove('open');
       });
-    });
-
-    // Volunteer form submission via Cloud Function, gated by Firebase App Check
-    const form = document.getElementById('volunteerForm');
-    const status = document.getElementById('volunteerStatus');
-    const submitBtn = document.getElementById('volunteerSubmit');
-    const formLoadedAt = Date.now();
-
-    const FUNCTION_URL = 'https://us-central1-kyle4fay-2026.cloudfunctions.net/submitVolunteer';
-
-    // reCAPTCHA Enterprise site key. Public by design: it ships in the page and
-    // is bound to this domain in Google Cloud. Enterprise needs no secret here --
-    // App Check calls the reCAPTCHA API with the project's own credentials.
-    const RECAPTCHA_SITE_KEY = '6Lfjs50tAAAAAPCeuE0q6de8lZq3W_2_n4Uf9ySr';
-
-    let appCheck = null;
-    try {
-      appCheck = initializeAppCheck(initializeApp(firebaseConfig), {
-        provider: new ReCaptchaEnterpriseProvider(RECAPTCHA_SITE_KEY),
-        // Keeps the token fresh on a page left open. The previous provider's
-        // token expired after ~5 minutes and submit then read an empty field.
-        isTokenAutoRefreshEnabled: true,
-      });
-    } catch (err) {
-      // This module also runs the nav and platform cards, so a misconfigured
-      // key must degrade the form alone rather than the whole page.
-      console.error('App Check init failed:', err);
-    }
-
-    function showStatus(message, ok) {
-      status.textContent = message;
-      status.style.color = ok ? '#293f8e' : '#c0392b';
-      status.style.display = 'block';
-    }
-
-    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-    // App Check attests that the request really came from this site. Minting a
-    // token can hang if reCAPTCHA is blocked or the SDK never loads, so it
-    // always races a deadline rather than leaving the button stuck on 'Sending'.
-    async function getAppCheckToken(timeoutMs) {
-      if (!appCheck) throw new Error('app check unavailable');
-      const deadline = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('app check timeout')), timeoutMs));
-      const { token } = await Promise.race([getToken(appCheck, false), deadline]);
-      return token;
-    }
-
-    // The address field only matters (and is only required) for sign hosts.
-    const signBox = form.querySelector('input[name="help"][value="Host a Yard Sign"]');
-    const addressGroup = document.getElementById('vol-sign-address');
-    const addressInput = form.querySelector('[name="address"]');
-    function syncAddressField() {
-      const wantsSign = signBox.checked;
-      addressGroup.classList.toggle('is-visible', wantsSign);
-      addressInput.required = wantsSign;
-      if (!wantsSign) addressInput.value = '';
-    }
-    form.addEventListener('change', (e) => {
-      if (e.target === signBox) syncAddressField();
-    });
-    form.addEventListener('reset', () => setTimeout(syncAddressField, 0));
-    syncAddressField();
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      // Honeypot check
-      if (form.querySelector('[name="_honey"]').value) return;
-
-      const name = form.querySelector('[name="name"]').value.trim();
-      const email = form.querySelector('[name="email"]').value.trim();
-      const phone = form.querySelector('[name="phone"]').value.trim();
-      const roles = [...form.querySelectorAll('input[name="help"]:checked')].map(cb => cb.value);
-      const address = signBox.checked ? addressInput.value.trim() : '';
-      // Deliberately unchecked by default: a pre-ticked box is not valid consent.
-      const smsConsent = form.querySelector('[name="sms_consent"]').checked;
-
-      if (!name || !email || !roles.length) return;
-      if (signBox.checked && !address) {
-        showStatus('Please add a delivery address so we can bring your sign.', false);
-        addressInput.focus();
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
-      status.style.display = 'none';
-
-      try {
-        // Bot-timing check. This used to drop the submission on the floor with no
-        // feedback, so a fast or autofilling human just saw a dead button.
-        const elapsed = Date.now() - formLoadedAt;
-        if (elapsed < 3000) await sleep(3000 - elapsed);
-
-        let appCheckToken;
-        try {
-          appCheckToken = await getAppCheckToken(15000);
-        } catch (err) {
-          console.error('App Check unavailable:', err);
-          showStatus('Verification is unavailable right now. Please email volunteer@kyle4fay.org and we\'ll sign you up.', false);
-          return;
-        }
-
-        const res = await fetch(FUNCTION_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Firebase-AppCheck': appCheckToken,
-          },
-          body: JSON.stringify({ name, email, phone, roles, address, smsConsent }),
-        });
-
-        if (res.status === 401 || res.status === 403) {
-          showStatus('Verification failed. Please refresh and try again.', false);
-          return;
-        }
-
-        if (!res.ok) throw new Error(`Server error ${res.status}`);
-
-        showStatus('Thank you! We\'ll be in touch soon.', true);
-        form.reset();
-      } catch (err) {
-        console.error('Form submission error:', err);
-        showStatus('Something went wrong. Please email volunteer@kyle4fay.org instead.', false);
-      } finally {
-        // App Check tokens are reusable and auto-refreshed, so there is nothing
-        // to reset here the way a single-use CAPTCHA token would need.
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Count Me In';
-      }
     });
   </script>
 
