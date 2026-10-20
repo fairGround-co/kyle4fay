@@ -717,6 +717,56 @@
       }
     }
 
+    /* ===== ENDORSEMENTS ===== */
+    .endorsements {
+      background: var(--white);
+    }
+
+    .endorse-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .endorse-card {
+      margin: 0;
+    }
+
+    .endorse-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(41, 63, 142, 0.1);
+    }
+
+    .endorse-card figcaption {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .endorse-card figcaption strong {
+      display: block;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.1rem;
+      color: var(--navy);
+    }
+
+    @media (max-width: 900px) {
+      .endorse-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .endorse-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ===== GET INVOLVED ===== */
     .involved {
       background: var(--light-gray);
@@ -1112,6 +1162,7 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav">
+        <a href="#endorsements">Endorsements</a>
         <a href="#about">About</a>
         <a href="#platform">Platform</a>
         <a href="policy.html">Policy Papers</a>
@@ -1150,6 +1201,31 @@
       </div>
       <div class="hero-photo">
         <img src="images/headshot-2026.jpg" alt="Kyle Smith, candidate for Fayetteville City Council Ward 4" width="900" height="1200" loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ENDORSEMENTS ===== -->
+  <section class="section endorsements" id="endorsements">
+    <div class="section-inner">
+      <h2 class="section-heading">Endorsements</h2>
+      <div class="endorse-grid">
+
+        <figure class="endorse-card">
+          <img src="images/endorsements/aco-aru.jpg" alt="Arkansas Community Organizations and Arkansas Renters United endorse Kyle Smith for City Council, Ward 4, Position 1" loading="lazy" width="2000" height="2000">
+          <figcaption><strong>Arkansas Community Organizations &amp; Arkansas Renters United</strong></figcaption>
+        </figure>
+
+        <figure class="endorse-card">
+          <img src="images/endorsements/dandre-jones.jpg" alt="Endorsement from Dr. D&rsquo;Andre Jones, Fayetteville City Council, Ward 1" loading="lazy" width="1080" height="1350">
+          <figcaption><strong>Dr. D&rsquo;Andre Jones</strong>Fayetteville City Council, Ward 1</figcaption>
+        </figure>
+
+        <figure class="endorse-card">
+          <img src="images/endorsements/keaton-smith.jpg" alt="Endorsement from Keaton Smith, Fayetteville School Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
+          <figcaption><strong>Keaton Smith</strong>Fayetteville School Board</figcaption>
+        </figure>
+
       </div>
     </div>
   </section>
@@ -1220,6 +1296,7 @@
           <h3>Local Economic Development</h3>
           <p>Economic gardening, not big-game hunting. A diversified local economy with dozens of thriving small businesses is more resilient than betting on a single large outside employer.</p>
           <span class="plank-cta">What I'll do &rarr;</span>
+          <a href="policy.html#economic" class="plank-papers">Read the policy paper (1)</a>
           <div class="plank-accordion-detail"></div>
         </div>
 
