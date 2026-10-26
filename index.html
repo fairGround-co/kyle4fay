@@ -722,9 +722,17 @@
       background: var(--white);
     }
 
+    /* Coalition endorsement gets its own row; the campaign-branded
+       graphics fill a grid that wraps as more are added. */
+    .endorse-featured {
+      max-width: 440px;
+      margin: 0 auto 3rem;
+      text-align: center;
+    }
+
     .endorse-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
       gap: 1.5rem;
       align-items: start;
     }
@@ -755,15 +763,10 @@
       color: var(--navy);
     }
 
-    @media (max-width: 900px) {
-      .endorse-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
     @media (max-width: 560px) {
       .endorse-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
       }
     }
 
@@ -1226,12 +1229,12 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
   <section class="section endorsements" id="endorsements">
     <div class="section-inner">
       <h2 class="section-heading">Endorsements</h2>
-      <div class="endorse-grid">
+      <figure class="endorse-card endorse-featured">
+        <img src="images/endorsements/aco-aru.jpg" alt="Arkansas Community Organizations and Arkansas Renters United endorse Kyle Smith for City Council, Ward 4, Position 1" loading="lazy" width="2000" height="2000">
+        <figcaption><strong>Arkansas Community Organizations &amp; Arkansas Renters United</strong></figcaption>
+      </figure>
 
-        <figure class="endorse-card">
-          <img src="images/endorsements/aco-aru.jpg" alt="Arkansas Community Organizations and Arkansas Renters United endorse Kyle Smith for City Council, Ward 4, Position 1" loading="lazy" width="2000" height="2000">
-          <figcaption><strong>Arkansas Community Organizations &amp; Arkansas Renters United</strong></figcaption>
-        </figure>
+      <div class="endorse-grid">
 
         <figure class="endorse-card">
           <img src="images/endorsements/dandre-jones.jpg" alt="Endorsement from Dr. D&rsquo;Andre Jones, Fayetteville City Council, Ward 1" loading="lazy" width="1080" height="1350">
@@ -1246,6 +1249,11 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         <figure class="endorse-card">
           <img src="images/endorsements/clark-eckels.jpg" alt="Endorsement from Clark Eckels, Fayetteville Strong, standing with Kyle and a friend around a strawberry mural" loading="lazy" width="410" height="512">
           <figcaption><strong>Clark Eckels</strong>Fayetteville Strong</figcaption>
+        </figure>
+
+        <figure class="endorse-card">
+          <img src="images/endorsements/lara-bell-phillips.jpg" alt="Endorsement from Lara Bell Phillips, For Fayetteville, smiling cheek to cheek with Kyle" loading="lazy" width="1080" height="1350">
+          <figcaption><strong>Lara Bell Phillips</strong>For Fayetteville</figcaption>
         </figure>
 
       </div>
