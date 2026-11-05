@@ -151,7 +151,7 @@ html { scroll-padding-top: 84px; }
 .has-sub:focus-within .site-nav-sub,
 .site-nav-group[aria-expanded="true"] + .site-nav-sub { display: block; }
 
-.site-nav-donate {
+.site-nav .site-nav-donate {
   background: var(--sh-orange);
   color: var(--sh-cream) !important;
   padding: 0.5rem 1.25rem !important;
@@ -161,7 +161,7 @@ html { scroll-padding-top: 84px; }
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.site-nav-donate:hover { box-shadow: 0 4px 12px rgba(252, 117, 6, 0.35); }
+.site-nav .site-nav-donate:hover { box-shadow: 0 4px 12px rgba(252, 117, 6, 0.35); }
 
 .site-menu-toggle {
   display: none;
