@@ -159,8 +159,32 @@
       line-height: 1.35;
     }
 
+    /* Forums are landscape: two across, 16:9. */
+    .videos-wide { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 2.5rem; }
+    .videos-wide .video-frame { aspect-ratio: 16 / 9; }
+
+    .videos-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    .video-frame-plain {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
+    }
+    .video-frame-label {
+      position: absolute;
+      left: 1rem;
+      bottom: 0.85rem;
+      color: var(--cream);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
     @media (max-width: 760px) {
       .videos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+      .videos-wide { grid-template-columns: 1fr; }
     }
 
     .channel-cta { margin-top: 2.5rem; text-align: center; }
@@ -276,7 +300,32 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
 
   <main id="main">
     <h1>Videos</h1>
-    <p class="intro">Short takes on the issues in Ward 4. Every video here lives on the campaign&rsquo;s <a href="https://www.youtube.com/@Kyle4Fay" target="_blank" rel="noopener">YouTube channel</a>.</p>
+    <p class="intro">Candidate forums and short takes on the issues in Ward 4. Most of these live on the campaign&rsquo;s <a href="https://www.youtube.com/@Kyle4Fay" target="_blank" rel="noopener">YouTube channel</a>.</p>
+
+    <h2 class="videos-heading">Candidate Forums</h2>
+    <div class="videos videos-wide">
+
+      <article class="video" id="affordability-forum">
+        <a class="video-frame" href="https://www.youtube.com/watch?v=V3ejcsGd6kE" data-video-id="V3ejcsGd6kE" aria-label="Play video: Affordability Forum">
+          <img src="https://i.ytimg.com/vi/V3ejcsGd6kE/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <span class="video-play" aria-hidden="true"></span>
+        </a>
+        <h2>Affordability Forum</h2>
+      </article>
+
+      <!-- Vimeo has no static thumbnail URL, so this tile is a plain
+           branded card until it's clicked. -->
+      <article class="video" id="fnha-forum">
+        <a class="video-frame video-frame-plain" href="https://vimeo.com/1235684269" data-video-id="1235684269" data-provider="vimeo" aria-label="Play video: FNHA Forum">
+          <span class="video-frame-label" aria-hidden="true">FNHA Forum</span>
+          <span class="video-play" aria-hidden="true"></span>
+        </a>
+        <h2>FNHA Forum</h2>
+      </article>
+
+    </div>
+
+    <h2 class="videos-heading">Short Takes</h2>
 
     <!-- One <article> per video. VIDEO_ID is the part after "watch?v=",
          "youtu.be/" or "shorts/" in the YouTube URL. Source of truth for
@@ -361,7 +410,7 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
 
 
   <script>
-    // Swap a thumbnail link for the player only when it's clicked. Starting
+    // Swap a thumbnail link for the player (YouTube or Vimeo) only when it's clicked. Starting
     // one video puts the previous one back to its thumbnail.
     var playing = null;
     document.querySelectorAll('.video-frame[data-video-id]').forEach(function (link) {
@@ -372,7 +421,9 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         var player = document.createElement('div');
         player.className = 'video-frame';
         var iframe = document.createElement('iframe');
-        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0';
+        iframe.src = link.getAttribute('data-provider') === 'vimeo'
+          ? 'https://player.vimeo.com/video/' + id + '?autoplay=1&dnt=1'
+          : 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0';
         iframe.title = link.getAttribute('aria-label').replace('Play video: ', '');
         iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
         iframe.allowFullscreen = true;

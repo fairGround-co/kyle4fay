@@ -19,6 +19,8 @@ One row per video. "On YouTube" is the gate for adding it to the site.
 | 9 | Affordable Fayetteville | | | https://www.facebook.com/reel/1468931156295316/ |  | | no | no | upload |
 | 10 | Voter Registration | | | https://www.facebook.com/reel/1072512782349089/ |  | | no | no | upload |
 | 11 | Keaton Smith endorsement | | | https://www.facebook.com/reel/2195981711799357 |  | | no | no | upload |
+| 12 | Affordability Forum | | | | https://www.youtube.com/watch?v=V3ejcsGd6kE | | yes | yes | done |
+| 13 | FNHA Forum | | | | | Vimeo: https://vimeo.com/1235684269 | no (Vimeo) | yes, Vimeo embed | confirm owner, then upload or leave on Vimeo |
 
 ## Status key
 
