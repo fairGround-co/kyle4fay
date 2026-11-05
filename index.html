@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kyle Smith for Fayetteville City Council | Ward 4, Position 1</title>
-  <meta name="description" content="Kyle Smith is running for Fayetteville City Council, Ward 4 Position 1. A proven leader with a plan to build the city we've already planned for. November 2026.">
+  <meta name="description" content="Kyle Smith is running for Fayetteville City Council, Ward 4 Position 1. A proven leader with a plan to build the city we've already planned for. Runoff: December 1, 2026.">
   <meta property="og:title" content="Kyle Smith for Fayetteville City Council">
-  <meta property="og:description" content="A city that works for everyone. Kyle Smith for Ward 4, Position 1. November 2026.">
+  <meta property="og:description" content="A city that works for everyone. Kyle Smith for Ward 4, Position 1. Runoff: December 1, 2026.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kyle4fay.org">
   <meta property="og:locale" content="en_US">
@@ -17,7 +17,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://kyle4fay.org/images/og-image.jpg">
   <meta name="twitter:title" content="Kyle Smith for Fayetteville City Council">
-  <meta name="twitter:description" content="A city that works for everyone. Ward 4, Position 1. November 2026.">
+  <meta name="twitter:description" content="A city that works for everyone. Ward 4, Position 1. Runoff: December 1, 2026.">
   <link rel="icon" href="images/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
@@ -58,99 +58,11 @@
       line-height: 1.6;
     }
 
-    /* ===== HEADER / NAV ===== */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      /* Matches the logo banner's own ground so the artwork reads as part of
-         the bar rather than a pasted-on colored plate. */
-      background: var(--blue);
-      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-      transition: box-shadow 0.3s ease;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 70px;
-    }
-
-    .logo {
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-    }
-
-    .logo img {
-      height: 50px;
-      width: auto;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav a {
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--cream);
-      transition: color 0.2s;
-    }
-
-    .nav a:hover {
-      color: var(--gold);
-    }
-
-    .nav .btn-donate-nav {
-      background: var(--orange);
-      color: var(--cream);
-      padding: 0.5rem 1.25rem;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-
-    .nav .btn-donate-nav:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(252, 117, 6, 0.35);
-    }
-
-    .mobile-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0.5rem;
-    }
-
-    .mobile-toggle span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--cream);
-      margin: 5px 0;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
     /* ===== HERO ===== */
     .hero {
       background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
       color: var(--cream);
-      padding: 10rem 1.5rem 6rem;
+      padding: 5rem 1.5rem 6rem;
       position: relative;
       overflow: hidden;
     }
@@ -722,51 +634,85 @@
       background: var(--white);
     }
 
-    /* Coalition endorsement gets its own row; the campaign-branded
-       graphics fill a grid that wraps as more are added. */
-    .endorse-featured {
-      max-width: 440px;
-      margin: 0 auto 3rem;
-      text-align: center;
-    }
-
-    .endorse-grid {
+    /* Bento grid, modeled loosely on fairGround-co/design-system's
+       BentoGrid: the square coalition graphic is a 2x2 tile, the
+       portrait campaign graphics are 1x1, and a "see all" tile fills
+       the last cell. Names are on the graphics themselves, so tiles
+       carry no captions; endorsements.html has the details. */
+    .endorse-bento {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 1.5rem;
-      align-items: start;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-flow: dense;
+      gap: 1rem;
     }
 
-    .endorse-card {
-      margin: 0;
+    .endorse-tile {
+      display: block;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(41, 63, 142, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .endorse-card img {
+    .endorse-tile:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 34px rgba(41, 63, 142, 0.16);
+    }
+
+    .endorse-tile img {
       display: block;
       width: 100%;
       height: auto;
-      border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(41, 63, 142, 0.1);
     }
 
-    .endorse-card figcaption {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.5;
+    /* The square graphic sits in a portrait-shaped 2x2 cell. Taking it out
+       of flow keeps it from setting the row height, and the red fill
+       matches the graphic's own top and bottom bands. */
+    .endorse-tile-wide {
+      grid-column: span 2;
+      grid-row: span 2;
+      background: #e8232a;
     }
 
-    .endorse-card figcaption strong {
-      display: block;
+    .endorse-tile-wide img {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .endorse-tile-more {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1.5rem;
+      background: var(--blue);
+      color: var(--cream);
+      text-decoration: none;
+    }
+
+    .endorse-tile-more strong {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.1rem;
-      color: var(--navy);
+      font-size: 1.4rem;
+      line-height: 1.2;
     }
 
-    @media (max-width: 560px) {
-      .endorse-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
+    .endorse-tile-more span {
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    @media (max-width: 760px) {
+      .endorse-bento {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+
+      .endorse-tile-wide {
+        grid-row: span 1;
+        aspect-ratio: 1;
       }
     }
 
@@ -1097,38 +1043,8 @@
     }
 
     @media (max-width: 700px) {
-      .header-inner {
-        height: 60px;
-      }
-
-      .logo img {
-        height: 40px;
-      }
-
-      .nav {
-        position: fixed;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background: var(--blue);
-        flex-direction: column;
-        padding: 1.5rem;
-        gap: 1rem;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-        transform: translateY(-120%);
-        transition: transform 0.3s ease;
-      }
-
-      .nav.open {
-        transform: translateY(0);
-      }
-
-      .mobile-toggle {
-        display: block;
-      }
-
       .hero {
-        padding: 8rem 1.5rem 4rem;
+        padding: 3rem 1.5rem 4rem;
       }
 
       .section {
@@ -1180,31 +1096,60 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
 </script>
 </head>
 <body>
-
-  <!-- ===== HEADER ===== -->
-  <header class="header" id="top">
-    <div class="header-inner">
-      <a href="#top" class="logo">
-        <img src="images/logo-banner-500.png" alt="Kyle Smith for Fayetteville City Council, Ward 4" width="500" height="146">
+  <!-- site-header:start
+       Generated from partials/site-header.html by tools/sync-header.py.
+       Edit the partial, then run the script; don't edit this copy. -->
+  <link rel="stylesheet" href="/css/site-header.css">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="runoff-banner" id="runoff-banner" role="region" aria-label="Runoff election">
+    <strong>Ward 4 runoff: Tuesday, December 1.</strong>
+    Early voting starts Tuesday, November 24.
+    <a href="/vote.html">How to vote &rarr;</a>
+  </div>
+  <header class="site-header" id="top">
+    <div class="site-header-inner">
+      <a href="/" class="site-logo">
+        <img src="/images/logo-banner-500.png" alt="Kyle Smith for Fayetteville City Council, Ward 4" width="500" height="146">
       </a>
-      <button class="mobile-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav').classList.toggle('open')">
-        <span></span><span></span><span></span>
+      <button class="site-menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="site-menu-bars" aria-hidden="true"></span>
+        <span class="site-sr-only">Menu</span>
       </button>
-      <nav class="nav">
-        <a href="#endorsements">Endorsements</a>
-        <a href="#about">About</a>
-        <a href="#platform">Platform</a>
-        <a href="policy.html">Policy Papers</a>
-        <a href="#news">News</a>
-        <a href="#involved">Get Involved</a>
-        <a href="vote.html">How to Vote</a>
-        <!-- TODO: Replace with GoodChange campaign URL -->
-        <a href="https://goodchange.app/donate/kyle4fay?mk=website-13&refcode=nav&num=20.26" class="btn-donate-nav">Contribute</a>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="site-nav-list">
+          <li class="site-nav-item has-sub">
+            <button class="site-nav-group" type="button" aria-expanded="false">About</button>
+            <ul class="site-nav-sub">
+              <li><a href="/#about">Meet Kyle</a></li>
+              <li><a href="/endorsements.html">Endorsements</a></li>
+            </ul>
+          </li>
+          <li class="site-nav-item has-sub">
+            <button class="site-nav-group" type="button" aria-expanded="false">Platform</button>
+            <ul class="site-nav-sub">
+              <li><a href="/#platform">The Plan</a></li>
+              <li><a href="/policy.html">Policy Papers</a></li>
+            </ul>
+          </li>
+          <li class="site-nav-item has-sub">
+            <button class="site-nav-group" type="button" aria-expanded="false">Media</button>
+            <ul class="site-nav-sub">
+              <li><a href="/#news">News</a></li>
+              <li><a href="/videos.html">Videos</a></li>
+            </ul>
+          </li>
+          <li class="site-nav-item"><a href="/#involved">Get Involved</a></li>
+          <li class="site-nav-item"><a href="/vote.html">How to Vote</a></li>
+          <li class="site-nav-item"><a class="site-nav-donate" href="https://goodchange.app/donate/kyle4fay?mk=website-13&amp;refcode=nav&amp;num=20.26">Contribute</a></li>
+        </ul>
       </nav>
     </div>
   </header>
+  <script src="/js/site-header.js" defer></script>
+  <!-- site-header:end -->
 
   <!-- ===== HERO ===== -->
+  <main id="main">
   <section class="hero" id="hero">
     <div class="hero-content">
       <div class="hero-text">
@@ -1213,12 +1158,12 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         <p class="subtitle">Fayetteville has incredible potential &mdash; and the plans to match it. Now we need leadership that follows through: progressive in our values, conservative with our finances.</p>
         <div class="hero-dates">
           <div>
-            <span class="hero-dates-label">Election Day</span>
-            <time datetime="2026-11-03">Tuesday, November 3, 2026</time>
+            <span class="hero-dates-label">Runoff Election Day</span>
+            <time datetime="2026-12-01">Tuesday, December 1, 2026</time>
           </div>
           <div>
             <span class="hero-dates-label">Early voting begins</span>
-            <time datetime="2026-10-19">Monday, October 19, 2026</time>
+            <time datetime="2026-11-24">Tuesday, November 24, 2026</time>
           </div>
         </div>
 
@@ -1238,48 +1183,35 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
   <section class="section endorsements" id="endorsements">
     <div class="section-inner">
       <h2 class="section-heading">Endorsements</h2>
-      <figure class="endorse-card endorse-featured">
-        <img src="images/endorsements/aco-aru.jpg" alt="Arkansas Community Organizations and Arkansas Renters United endorse Kyle Smith for City Council, Ward 4, Position 1" loading="lazy" width="2000" height="2000">
-        <figcaption><strong>Arkansas Community Organizations &amp; Arkansas Renters United</strong></figcaption>
-      </figure>
-
-      <div class="endorse-grid">
-
-        <figure class="endorse-card">
+      <div class="endorse-bento">
+        <a class="endorse-tile endorse-tile-wide" href="endorsements.html#aco-aru">
+          <img src="images/endorsements/aco-aru.jpg" alt="Arkansas Community Organizations and Arkansas Renters United endorse Kyle Smith for City Council, Ward 4, Position 1" loading="lazy" width="2000" height="2000">
+        </a>
+        <a class="endorse-tile" href="endorsements.html#dandre-jones">
           <img src="images/endorsements/dandre-jones.jpg" alt="Endorsement from Dr. D&rsquo;Andre Jones, Fayetteville City Council, Ward 1" loading="lazy" width="1080" height="1350">
-          <figcaption><strong>Dr. D&rsquo;Andre Jones</strong>Fayetteville City Council, Ward 1</figcaption>
-        </figure>
-
-        <figure class="endorse-card">
+        </a>
+        <a class="endorse-tile" href="endorsements.html#keaton-smith">
           <img src="images/endorsements/keaton-smith.jpg" alt="Endorsement from Keaton Smith, Fayetteville School Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
-          <figcaption><strong>Keaton Smith</strong>Fayetteville School Board</figcaption>
-        </figure>
-
-        <figure class="endorse-card">
+        </a>
+        <a class="endorse-tile" href="endorsements.html#clark-eckels">
           <img src="images/endorsements/clark-eckels.jpg" alt="Endorsement from Clark Eckels, Fayetteville Strong, standing with Kyle and a friend around a strawberry mural" loading="lazy" width="410" height="512">
-          <figcaption><strong>Clark Eckels</strong>Fayetteville Strong</figcaption>
-        </figure>
-
-        <figure class="endorse-card">
+        </a>
+        <a class="endorse-tile" href="endorsements.html#lara-bell-phillips">
           <img src="images/endorsements/lara-bell-phillips.jpg" alt="Endorsement from Lara Bell Phillips, For Fayetteville, smiling cheek to cheek with Kyle" loading="lazy" width="1080" height="1350">
-          <figcaption><strong>Lara Bell Phillips</strong>For Fayetteville</figcaption>
-        </figure>
-
-        <figure class="endorse-card">
+        </a>
+        <a class="endorse-tile" href="endorsements.html#megan-hurley">
           <img src="images/endorsements/megan-hurley.jpg" alt="Endorsement from Megan Hurley, former Fayetteville School Board member, in a selfie with Kyle outdoors" loading="lazy" width="1080" height="1350">
-          <figcaption><strong>Megan Hurley</strong>Former Fayetteville School Board Member</figcaption>
-        </figure>
-
-        <figure class="endorse-card">
+        </a>
+        <a class="endorse-tile" href="endorsements.html#rob-qualls">
           <img src="images/endorsements/rob-qualls.jpg" alt="Endorsement from Rob Qualls, Fayetteville Public Library Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
-          <figcaption><strong>Rob Qualls</strong>Fayetteville Public Library Board</figcaption>
-        </figure>
-
-        <figure class="endorse-card">
-          <img src="images/endorsements/lyssa-kelly.jpg" alt="Endorsement from Lyssa Kelly, Heritage Village HOA, laughing with Kyle at an event" loading="lazy" width="1080" height="1350">
-          <figcaption><strong>Lyssa Kelly</strong>Heritage Village HOA</figcaption>
-        </figure>
-
+        </a>
+        <a class="endorse-tile" href="endorsements.html#lissa-kelly">
+          <img src="images/endorsements/lissa-kelly.jpg" alt="Endorsement from Lissa Kelly, Heritage Village HOA, laughing with Kyle at an event" loading="lazy" width="1080" height="1350">
+        </a>
+        <a class="endorse-tile endorse-tile-more" href="endorsements.html">
+          <strong>Who&rsquo;s with Kyle, and why</strong>
+          <span>All endorsements &rarr;</span>
+        </a>
       </div>
     </div>
   </section>
@@ -1503,6 +1435,8 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
   </section>
 
   <!-- ===== FOOTER ===== -->
+  </main>
+
   <footer class="footer">
     <div class="footer-inner">
       <p class="footer-title">Kyle Smith for Fayetteville City Council &middot; Ward 4, Position 1</p>
@@ -1670,12 +1604,6 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
       });
     });
 
-    // Close mobile nav on link click
-    document.querySelectorAll('.nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('.nav').classList.remove('open');
-      });
-    });
   </script>
 
 </body>

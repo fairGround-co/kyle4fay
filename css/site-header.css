@@ -1,0 +1,243 @@
+/* Shared header: runoff banner + grouped nav. Used by every public page
+   through partials/site-header.html. Colors repeat the brand tokens so
+   the header doesn't depend on any one page's :root. */
+
+.site-header,
+.runoff-banner,
+.skip-link {
+  --sh-blue: #5d70ce;
+  --sh-navy: #293f8e;
+  --sh-gold: #f7bf0b;
+  --sh-orange: #fc7506;
+  --sh-cream: #fff2e3;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.site-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 1100;
+  background: var(--sh-navy);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 700;
+}
+.skip-link:focus { top: 0.5rem; }
+
+/* In-page links land below the sticky header, not under it. */
+html { scroll-padding-top: 84px; }
+
+/* ---- Runoff banner ---- */
+.runoff-banner {
+  background: var(--sh-gold);
+  color: var(--sh-navy);
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  padding: 0.55rem 1rem;
+}
+.runoff-banner strong { font-weight: 800; }
+.runoff-banner a {
+  color: var(--sh-navy);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ---- Header bar ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--sh-blue);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+}
+
+.site-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-logo { display: flex; align-items: center; }
+.site-logo img { display: block; height: 50px; width: auto; }
+
+/* ---- Nav ---- */
+.site-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.site-nav-item { position: relative; }
+
+.site-nav a,
+.site-nav-group {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--sh-cream);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0.25rem 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.site-nav a:hover,
+.site-nav-group:hover,
+.site-nav a[aria-current="page"] { color: var(--sh-gold); }
+
+.site-nav-group::after {
+  content: "";
+  display: inline-block;
+  margin-left: 0.4rem;
+  vertical-align: 0.2em;
+  border: 4px solid transparent;
+  border-top-color: currentColor;
+  border-bottom: 0;
+}
+
+.site-nav-sub {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: -1rem;
+  min-width: 11rem;
+  background: var(--sh-navy);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  display: none;
+}
+
+/* Bridge the gap so the menu doesn't close while the pointer crosses it. */
+.site-nav-sub::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -0.6rem;
+  height: 0.6rem;
+}
+
+.site-nav-sub a {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+/* Open on hover/focus (works without JS) or when JS sets aria-expanded. */
+.has-sub:hover .site-nav-sub,
+.has-sub:focus-within .site-nav-sub,
+.site-nav-group[aria-expanded="true"] + .site-nav-sub { display: block; }
+
+.site-nav-donate {
+  background: var(--sh-orange);
+  color: var(--sh-cream) !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: 6px;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.site-nav-donate:hover { box-shadow: 0 4px 12px rgba(252, 117, 6, 0.35); }
+
+.site-menu-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 0.75rem 0.5rem;
+  cursor: pointer;
+}
+.site-menu-bars,
+.site-menu-bars::before,
+.site-menu-bars::after {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--sh-cream);
+  border-radius: 2px;
+}
+.site-menu-bars { position: relative; }
+.site-menu-bars::before,
+.site-menu-bars::after { content: ""; position: absolute; left: 0; }
+.site-menu-bars::before { top: -7px; }
+.site-menu-bars::after { top: 7px; }
+
+/* ---- Mobile: one panel, groups shown as labeled lists ---- */
+@media (max-width: 900px) {
+  .site-header-inner { height: 60px; }
+  .site-logo img { height: 40px; }
+  .site-menu-toggle { display: block; }
+
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--sh-blue);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+  .site-nav.open { display: block; }
+
+  .site-nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem 1.5rem 1.5rem;
+  }
+  .site-nav-item { border-bottom: 1px solid rgba(255, 242, 227, 0.15); }
+  .site-nav-item:last-child { border-bottom: 0; padding-top: 1rem; }
+  .site-nav-item > a { display: block; padding: 0.85rem 0; }
+
+  .site-nav-group {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 0 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sh-gold);
+    cursor: default;
+  }
+  .site-nav-group::after { display: none; }
+
+  .site-nav-sub,
+  .has-sub:hover .site-nav-sub {
+    display: block;
+    position: static;
+    background: none;
+    box-shadow: none;
+    padding: 0 0 0.5rem;
+    min-width: 0;
+  }
+  .site-nav-sub::before { display: none; }
+  .site-nav-sub a { padding: 0.5rem 0; }
+  .site-nav-donate { display: inline-block; }
+}

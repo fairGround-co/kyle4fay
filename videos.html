@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Videos | Kyle Smith for Fayetteville City Council</title>
+  <meta name="description" content="Videos from Kyle Smith's campaign for Fayetteville City Council, Ward 4, Position 1.">
+  <meta property="og:title" content="Videos | Kyle Smith for Fayetteville City Council">
+  <meta property="og:description" content="Videos from Kyle Smith's Ward 4 campaign.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kyle4fay.org/videos.html">
+  <meta property="og:image" content="https://kyle4fay.org/images/og-image.jpg">
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="canonical" href="https://kyle4fay.org/videos.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Rebrand 2026 -- kept in step with the tokens in index.html. */
+      --navy: #293f8e;
+      --blue: #5d70ce;
+      --gold: #f7bf0b;
+      --orange: #fc7506;
+      --orange-dark: #d96105;
+      --cream: #fff2e3;
+      --white: #ffffff;
+      --light-gray: #faf5ee;
+      --text-dark: #1a1a2e;
+      --text-muted: #555;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-dark);
+      background: var(--light-gray);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      background: var(--blue);
+      padding: 1rem 1.5rem;
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .header img { display: block; height: auto; max-width: 100%; }
+    .header a.back {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 2px;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.25rem;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .intro {
+      color: var(--text-muted);
+      max-width: 62ch;
+      margin-bottom: 2.5rem;
+    }
+    .intro a { color: var(--navy); font-weight: 600; }
+
+    /* The campaign's videos are vertical reels/shorts, so the grid
+       holds 9:16 frames, three across on desktop. */
+    .videos {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .video {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(41, 63, 142, 0.07);
+    }
+    /* Nothing from YouTube loads until a visitor presses play: each tile is
+       a lazy-loaded thumbnail linking to the video, and the script below
+       swaps in a youtube-nocookie player on click. */
+    .video-frame {
+      display: block;
+      position: relative;
+      aspect-ratio: 9 / 16;
+      background: var(--navy);
+      overflow: hidden;
+    }
+    /* hqdefault is 4:3 with the vertical video centered, so cover-crop it
+       to the middle. */
+    .video-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .video-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 64px;
+      height: 64px;
+      margin: -32px 0 0 -32px;
+      border-radius: 50%;
+      background: rgba(41, 63, 142, 0.85);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .video-play::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -12px 0 0 -7px;
+      border-style: solid;
+      border-width: 12px 0 12px 20px;
+      border-color: transparent transparent transparent var(--white);
+    }
+    .video-frame:hover .video-play,
+    .video-frame:focus-visible .video-play {
+      background: var(--orange);
+      transform: scale(1.06);
+    }
+    .video-frame:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .video h2 {
+      padding: 0.85rem 1rem 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.35;
+    }
+
+    @media (max-width: 760px) {
+      .videos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    }
+
+    .channel-cta { margin-top: 2.5rem; text-align: center; }
+    .btn-read {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .btn-read:hover { background: var(--orange-dark); }
+
+    .footer {
+      background: var(--navy);
+      color: var(--white);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+    }
+    .footer a { color: var(--gold); }
+    .footer p { margin-bottom: 0.4rem; color: var(--white); font-size: 0.85rem; }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.75rem; }
+      main { margin: 1.5rem auto; padding: 0 1rem; }
+    }
+  </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1765040423507276');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18542402279"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18542402279');
+</script>
+</head>
+<body>
+  <!-- site-header:start
+       Generated from partials/site-header.html by tools/sync-header.py.
+       Edit the partial, then run the script; don't edit this copy. -->
+  <link rel="stylesheet" href="/css/site-header.css">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="runoff-banner" id="runoff-banner" role="region" aria-label="Runoff election">
+    <strong>Ward 4 runoff: Tuesday, December 1.</strong>
+    Early voting starts Tuesday, November 24.
+    <a href="/vote.html">How to vote &rarr;</a>
+  </div>
+  <header class="site-header" id="top">
+    <div class="site-header-inner">
+      <a href="/" class="site-logo">
+        <img src="/images/logo-banner-500.png" alt="Kyle Smith for Fayetteville City Council, Ward 4" width="500" height="146">
+      </a>
+      <button class="site-menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="site-menu-bars" aria-hidden="true"></span>
+        <span class="site-sr-only">Menu</span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="site-nav-list">
+          <li class="site-nav-item has-sub">
+            <button class="site-nav-group" type="button" aria-expanded="false">About</button>
+            <ul class="site-nav-sub">
+              <li><a href="/#about">Meet Kyle</a></li>
+              <li><a href="/endorsements.html">Endorsements</a></li>
+            </ul>
+          </li>
+          <li class="site-nav-item has-sub">
+            <button class="site-nav-group" type="button" aria-expanded="false">Platform</button>
+            <ul class="site-nav-sub">
+              <li><a href="/#platform">The Plan</a></li>
+              <li><a href="/policy.html">Policy Papers</a></li>
+            </ul>
+          </li>
+          <li class="site-nav-item has-sub">
+            <button class="site-nav-group" type="button" aria-expanded="false">Media</button>
+            <ul class="site-nav-sub">
+              <li><a href="/#news">News</a></li>
+              <li><a href="/videos.html">Videos</a></li>
+            </ul>
+          </li>
+          <li class="site-nav-item"><a href="/#involved">Get Involved</a></li>
+          <li class="site-nav-item"><a href="/vote.html">How to Vote</a></li>
+          <li class="site-nav-item"><a class="site-nav-donate" href="https://goodchange.app/donate/kyle4fay?mk=website-13&amp;refcode=nav&amp;num=20.26">Contribute</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <script src="/js/site-header.js" defer></script>
+  <!-- site-header:end -->
+
+
+
+  <main id="main">
+    <h1>Videos</h1>
+    <p class="intro">Short takes on the issues in Ward 4. Every video here lives on the campaign&rsquo;s <a href="https://www.youtube.com/@Kyle4Fay" target="_blank" rel="noopener">YouTube channel</a>.</p>
+
+    <!-- One <article> per video. VIDEO_ID is the part after "watch?v=",
+         "youtu.be/" or "shorts/" in the YouTube URL. Source of truth for
+         what exists and where: docs/video-catalog.md. -->
+    <div class="videos">
+
+      <article class="video" id="kyle-smith-for-ward-4">
+        <a class="video-frame" href="https://www.youtube.com/shorts/1S5LjVOeyxs" data-video-id="1S5LjVOeyxs" aria-label="Play video: Kyle Smith for Ward 4">
+          <img src="https://i.ytimg.com/vi/1S5LjVOeyxs/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <span class="video-play" aria-hidden="true"></span>
+        </a>
+        <h2>Kyle Smith for Ward 4</h2>
+      </article>
+
+      <article class="video" id="plan-the-city-we-want">
+        <a class="video-frame" href="https://www.youtube.com/shorts/dbF4uptLxI8" data-video-id="dbF4uptLxI8" aria-label="Play video: Plan the City We Want">
+          <img src="https://i.ytimg.com/vi/dbF4uptLxI8/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <span class="video-play" aria-hidden="true"></span>
+        </a>
+        <h2>Plan the City We Want</h2>
+      </article>
+
+      <article class="video" id="housing-costs">
+        <a class="video-frame" href="https://www.youtube.com/shorts/77G5lcHS77s" data-video-id="77G5lcHS77s" aria-label="Play video: Housing Costs">
+          <img src="https://i.ytimg.com/vi/77G5lcHS77s/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <span class="video-play" aria-hidden="true"></span>
+        </a>
+        <h2>Housing Costs</h2>
+      </article>
+
+      <article class="video" id="fixing-our-infrastructure">
+        <a class="video-frame" href="https://www.youtube.com/shorts/LBjzicMyAM0" data-video-id="LBjzicMyAM0" aria-label="Play video: Fixing Our Infrastructure">
+          <img src="https://i.ytimg.com/vi/LBjzicMyAM0/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <span class="video-play" aria-hidden="true"></span>
+        </a>
+        <h2>Fixing Our Infrastructure</h2>
+      </article>
+
+      <article class="video" id="water-leaks">
+        <a class="video-frame" href="https://www.youtube.com/shorts/s4Dx9PbDJZ4" data-video-id="s4Dx9PbDJZ4" aria-label="Play video: Water Leaks">
+          <img src="https://i.ytimg.com/vi/s4Dx9PbDJZ4/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <span class="video-play" aria-hidden="true"></span>
+        </a>
+        <h2>Water Leaks</h2>
+      </article>
+
+      <article class="video" id="playing-chicken-on-wedington">
+        <a class="video-frame" href="https://www.youtube.com/shorts/xwHmdScSZZs" data-video-id="xwHmdScSZZs" aria-label="Play video: Playing Chicken on Wedington">
+          <img src="https://i.ytimg.com/vi/xwHmdScSZZs/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <span class="video-play" aria-hidden="true"></span>
+        </a>
+        <h2>Playing Chicken on Wedington</h2>
+      </article>
+
+      <article class="video" id="underwood-golf-course">
+        <a class="video-frame" href="https://www.youtube.com/shorts/MZDrBH_uVGk" data-video-id="MZDrBH_uVGk" aria-label="Play video: Underwood Golf Course">
+          <img src="https://i.ytimg.com/vi/MZDrBH_uVGk/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <span class="video-play" aria-hidden="true"></span>
+        </a>
+        <h2>Underwood Golf Course</h2>
+      </article>
+
+      <article class="video" id="nerdiest-name">
+        <a class="video-frame" href="https://www.youtube.com/shorts/eC-Ahz7-oyk" data-video-id="eC-Ahz7-oyk" aria-label="Play video: Nerdiest Name">
+          <img src="https://i.ytimg.com/vi/eC-Ahz7-oyk/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+          <span class="video-play" aria-hidden="true"></span>
+        </a>
+        <h2>Nerdiest Name</h2>
+      </article>
+
+    </div>
+
+    <p class="channel-cta"><a href="https://www.youtube.com/@Kyle4Fay" class="btn-read" target="_blank" rel="noopener">See everything on YouTube</a></p>
+
+  </main>
+
+  <footer class="footer">
+    <p>Kyle Smith for Fayetteville City Council &middot; Ward 4, Position 1</p>
+    <p>Paid for by Vote for Kyle Smith</p>
+    <p><a href="index.html">kyle4fay.org</a> &middot; <a href="privacy.html">Privacy Policy</a></p>
+  </footer>
+
+
+  <script>
+    // Swap a thumbnail link for the player only when it's clicked. Starting
+    // one video puts the previous one back to its thumbnail.
+    var playing = null;
+    document.querySelectorAll('.video-frame[data-video-id]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (playing) playing.player.replaceWith(playing.link);
+        var id = link.getAttribute('data-video-id');
+        var player = document.createElement('div');
+        player.className = 'video-frame';
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0';
+        iframe.title = link.getAttribute('aria-label').replace('Play video: ', '');
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        iframe.allowFullscreen = true;
+        player.appendChild(iframe);
+        link.replaceWith(player);
+        playing = { link: link, player: player };
+        iframe.focus();
+      });
+    });
+  </script>
+</body>
+</html>
