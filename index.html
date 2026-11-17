@@ -635,10 +635,11 @@
     }
 
     /* Bento grid, modeled loosely on fairGround-co/design-system's
-       BentoGrid: the square coalition graphic is a 2x2 tile, the
-       portrait campaign graphics are 1x1, and a "see all" tile fills
-       the last cell. Names are on the graphics themselves, so tiles
-       carry no captions; endorsements.html has the details. */
+       BentoGrid. The featured endorsement is a 2x2 tile; every other
+       graphic is 1x1. With 4 columns, 4 + 8 singles fills three rows
+       exactly, so keep the single count a multiple of 4 (or add a
+       filler) as endorsements are added. Names are on the graphics, so
+       tiles carry no captions; endorsements.html has the details. */
     .endorse-bento {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -666,42 +667,50 @@
       height: auto;
     }
 
-    /* The square graphic sits in a portrait-shaped 2x2 cell. Taking it out
-       of flow keeps it from setting the row height, and the red fill
-       matches the graphic's own top and bottom bands. */
-    .endorse-tile-wide {
+    /* Featured: spans 2x2 and fills it, so its image is taken out of flow
+       and cover-cropped to whatever height the rows end up. */
+    .endorse-tile-feature {
       grid-column: span 2;
       grid-row: span 2;
+      background: var(--blue);
+    }
+
+    .endorse-tile-feature img {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: opacity 0.35s ease;
+    }
+
+    /* Hover/focus swaps the photo for the quote graphic. */
+    .endorse-tile-feature .endorse-swap { opacity: 0; }
+    .endorse-tile-feature:hover .endorse-swap,
+    .endorse-tile-feature:focus-visible .endorse-swap { opacity: 1; }
+
+    /* The square coalition graphic in a portrait 1x1 cell: letterboxed on
+       a red that matches its own top and bottom bands. */
+    .endorse-tile-square {
+      aspect-ratio: 4 / 5;
       background: #e8232a;
     }
 
-    .endorse-tile-wide img {
+    .endorse-tile-square img {
       position: absolute;
       inset: 0;
       height: 100%;
       object-fit: contain;
     }
 
-    .endorse-tile-more {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 1.5rem;
-      background: var(--blue);
-      color: var(--cream);
-      text-decoration: none;
+    .endorse-all {
+      margin-top: 1.5rem;
+      text-align: center;
     }
 
-    .endorse-tile-more strong {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.4rem;
-      line-height: 1.2;
-    }
-
-    .endorse-tile-more span {
-      font-weight: 600;
-      color: var(--gold);
+    .endorse-all a {
+      font-weight: 700;
+      color: var(--blue);
     }
 
     @media (max-width: 760px) {
@@ -710,10 +719,15 @@
         gap: 0.75rem;
       }
 
-      .endorse-tile-wide {
+      .endorse-tile-feature {
         grid-row: span 1;
-        aspect-ratio: 1;
+        aspect-ratio: 4 / 5;
       }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .endorse-tile,
+      .endorse-tile-feature img { transition: none; }
     }
 
     /* ===== GET INVOLVED ===== */
@@ -1211,7 +1225,12 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
     <div class="section-inner">
       <h2 class="section-heading">Endorsements</h2>
       <div class="endorse-bento">
-        <a class="endorse-tile endorse-tile-wide" href="endorsements.html#aco-aru">
+        <a class="endorse-tile endorse-tile-feature" href="endorsements.html#chad-hall">
+          <img src="images/endorsements/chad-hall.jpg" alt="Endorsement from Chad Hall, former Ward 4 candidate" width="410" height="512">
+          <img class="endorse-swap" src="images/endorsements/chad-hall-quote.jpg" alt="" aria-hidden="true" loading="lazy" width="410" height="512">
+          <span class="site-sr-only">Chad Hall: &ldquo;This election made it clear that there is a desire for a change in how Ward 4 is represented at City Hall. I believe Kyle and I are more closely aligned in our vision for Fayetteville and in the priorities we believe need continued attention.&rdquo;</span>
+        </a>
+        <a class="endorse-tile endorse-tile-square" href="endorsements.html#aco-aru">
           <img src="images/endorsements/aco-aru.jpg" alt="Arkansas Community Organizations and Arkansas Renters United endorse Kyle Smith for City Council, Ward 4, Position 1" loading="lazy" width="2000" height="2000">
         </a>
         <a class="endorse-tile" href="endorsements.html#dandre-jones">
@@ -1235,11 +1254,8 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         <a class="endorse-tile" href="endorsements.html#lissa-kelly">
           <img src="images/endorsements/lissa-kelly.jpg" alt="Endorsement from Lissa Kelly, Heritage Village HOA, laughing with Kyle at an event" loading="lazy" width="819" height="1024">
         </a>
-        <a class="endorse-tile endorse-tile-more" href="endorsements.html">
-          <strong>Who&rsquo;s with Kyle, and why</strong>
-          <span>All endorsements &rarr;</span>
-        </a>
       </div>
+      <p class="endorse-all"><a href="endorsements.html">Read what they said &rarr;</a></p>
     </div>
   </section>
 
