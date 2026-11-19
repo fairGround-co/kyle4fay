@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Endorsement grid patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root { --navy:#293f8e; --blue:#5d70ce; --gold:#f7bf0b; --orange:#fc7506; --cream:#fff2e3; --white:#fff; --text-muted:#555; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Montserrat',sans-serif; background:#faf5ee; color:#1a1a2e; padding:2rem 1.5rem 4rem; }
+main { max-width:1100px; margin:0 auto; }
+h1 { font-family:'Playfair Display',serif; color:var(--navy); margin-bottom:.5rem; }
+h2 { font-family:'Playfair Display',serif; color:var(--navy); margin:3rem 0 .4rem; }
+.how { color:var(--text-muted); max-width:70ch; margin-bottom:1.25rem; font-size:.95rem; }
+code { background:#fff; padding:0 .3rem; border-radius:4px; }
+    /* Endorsement grid: 4 columns (2 on phones), filled in source order.
+       Tiles are 4:5 portrait cells. Patterns, all set by class on the tile:
+         .is-feature        2x2 lead tile, at the start of the grid
+         .is-feature-right  2x2 tile pinned to the right half of its rows
+                            (for a second spotlight further down)
+         .is-new            "New" tag in the corner for recent additions
+         .endorse-group     full-width label row to split tiers/groups
+         .endorse-tile-cta  2-wide "read more" tile to square off a row
+       docs/endorsement-grid-patterns.html shows each one. Keep each row
+       full: count cells (feature = 4, cta = 2, others = 1) to a multiple
+       of 4, or add/remove the cta tile. */
+    .endorse-bento {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .endorse-tile {
+      display: block;
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--blue);
+      box-shadow: 0 8px 30px rgba(41, 63, 142, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .endorse-tile:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 34px rgba(41, 63, 142, 0.16);
+    }
+
+    .endorse-tile img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .endorse-tile.is-feature,
+    .endorse-tile.is-feature-right {
+      grid-column: span 2;
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+
+    .endorse-tile.is-feature-right { grid-column: 3 / span 2; }
+
+    /* Optional hover swap on any tile: a second image fades in. */
+    .endorse-tile img { transition: opacity 0.35s ease; }
+    .endorse-tile .endorse-swap { opacity: 0; }
+    .endorse-tile:hover .endorse-swap,
+    .endorse-tile:focus-visible .endorse-swap { opacity: 1; }
+
+    /* Square graphics (the coalition card) letterbox on their own red. */
+    .endorse-tile.is-square { background: #e8232a; }
+    .endorse-tile.is-square img { object-fit: contain; object-position: center; }
+
+    .endorse-tile.is-new::after {
+      content: "New";
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .endorse-group {
+      grid-column: 1 / -1;
+      margin: 1rem 0 -0.25rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+
+    .endorse-tile-cta {
+      grid-column: span 2;
+      aspect-ratio: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1.5rem 2rem;
+      background: var(--navy);
+      color: var(--cream);
+      text-decoration: none;
+    }
+
+    .endorse-tile-cta strong {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+
+    .endorse-tile-cta span {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    @media (max-width: 760px) {
+      .endorse-bento {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+      }
+
+      .endorse-tile.is-feature,
+      .endorse-tile.is-feature-right {
+        grid-column: 1 / -1;
+        grid-row: span 1;
+        aspect-ratio: 4 / 5;
+      }
+
+      .endorse-tile-cta { grid-column: 1 / -1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .endorse-tile,
+      .endorse-tile img { transition: none; }
+    }
+
+
+</style>
+</head>
+<body>
+<main>
+<h1>Endorsement grid patterns</h1>
+<p class="how">Reference for the homepage endorsement grid. Each pattern is just classes on the tiles in <code>index.html</code>; the CSS is identical to the live site. Rule of thumb: a feature tile is 4 cells, the &ldquo;read more&rdquo; tile is 2, everything else is 1. Keep each section to a multiple of 4 so rows end flush.</p>
+
+<h2>A. Lead feature (live now)</h2>
+<p class="how">One <code>is-feature</code> tile up front, singles fill in order. The 2-wide &ldquo;read more&rdquo; tile squares off the last row; drop it when the singles alone come out even.</p>
+<div class="endorse-bento"><a class="endorse-tile is-feature" href="#"><img src="../images/endorsements/chad-hall.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/gun-sense-2026.jpg" alt=""></a><a class="endorse-tile is-square" href="#"><img src="../images/endorsements/aco-aru.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/kara-paxton.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/dandre-jones.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/keaton-smith.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/megan-hurley.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/lissa-kelly.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/clark-eckels.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/rob-qualls.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/lara-bell-phillips.jpg" alt=""></a><a class="endorse-tile endorse-tile-cta" href="#"><strong>Who&rsquo;s with Kyle, and why</strong><span>Read what they said &rarr;</span></a></div>
+
+<h2>B. Tiers</h2>
+<p class="how">Full-width <code>endorse-group</code> labels split the grid into groups, e.g. elected officials vs. neighbors. Each group should be a multiple of 4 tiles (4 or 8); a group of 2 can share a row with a 2-wide tile.</p>
+<div class="endorse-bento"><a class="endorse-tile is-feature" href="#"><img src="../images/endorsements/chad-hall.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/gun-sense-2026.jpg" alt=""></a><a class="endorse-tile is-square" href="#"><img src="../images/endorsements/aco-aru.jpg" alt=""></a><a class="endorse-tile endorse-tile-cta" href="#"><strong>Who&rsquo;s with Kyle, and why</strong><span>Read what they said &rarr;</span></a><p class="endorse-group">Elected officials</p><a class="endorse-tile" href="#"><img src="../images/endorsements/kara-paxton.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/dandre-jones.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/keaton-smith.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/rob-qualls.jpg" alt=""></a><p class="endorse-group">Neighbors &amp; community leaders</p><a class="endorse-tile" href="#"><img src="../images/endorsements/megan-hurley.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/lissa-kelly.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/clark-eckels.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/lara-bell-phillips.jpg" alt=""></a></div>
+
+<h2>C. Two spotlights + new arrivals</h2>
+<p class="how">A second spotlight further down with <code>is-feature-right</code>, so the page alternates left/right. <code>is-new</code> adds the orange tag; remove it after a week or so. The right feature needs exactly 2 singles before it in its row to sit flush.</p>
+<div class="endorse-bento"><a class="endorse-tile is-feature" href="#"><img src="../images/endorsements/chad-hall.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/gun-sense-2026.jpg" alt=""></a><a class="endorse-tile is-square" href="#"><img src="../images/endorsements/aco-aru.jpg" alt=""></a><a class="endorse-tile is-new" href="#"><img src="../images/endorsements/kara-paxton.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/dandre-jones.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/keaton-smith.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/megan-hurley.jpg" alt=""></a><a class="endorse-tile is-feature-right is-new" href="#"><img src="../images/endorsements/kara-paxton.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/lissa-kelly.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/clark-eckels.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/rob-qualls.jpg" alt=""></a><a class="endorse-tile" href="#"><img src="../images/endorsements/lara-bell-phillips.jpg" alt=""></a><a class="endorse-tile endorse-tile-cta" href="#"><strong>Who&rsquo;s with Kyle, and why</strong><span>Read what they said &rarr;</span></a></div>
+</main>
+</body>
+</html>

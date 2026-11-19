@@ -634,24 +634,30 @@
       background: var(--white);
     }
 
-    /* Bento grid, modeled loosely on fairGround-co/design-system's
-       BentoGrid. The featured endorsement is a 2x2 tile; every other
-       graphic is 1x1. With 4 columns, 4 + 8 singles fills three rows
-       exactly, so keep the single count a multiple of 4 (or add a
-       filler) as endorsements are added. Names are on the graphics, so
-       tiles carry no captions; endorsements.html has the details. */
+    /* Endorsement grid: 4 columns (2 on phones), filled in source order.
+       Tiles are 4:5 portrait cells. Patterns, all set by class on the tile:
+         .is-feature        2x2 lead tile, at the start of the grid
+         .is-feature-right  2x2 tile pinned to the right half of its rows
+                            (for a second spotlight further down)
+         .is-new            "New" tag in the corner for recent additions
+         .endorse-group     full-width label row to split tiers/groups
+         .endorse-tile-cta  2-wide "read more" tile to square off a row
+       docs/endorsement-grid-patterns.html shows each one. Keep each row
+       full: count cells (feature = 4, cta = 2, others = 1) to a multiple
+       of 4, or add/remove the cta tile. */
     .endorse-bento {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      grid-auto-flow: dense;
       gap: 1rem;
     }
 
     .endorse-tile {
       display: block;
       position: relative;
+      aspect-ratio: 4 / 5;
       border-radius: 12px;
       overflow: hidden;
+      background: var(--blue);
       box-shadow: 0 8px 30px rgba(41, 63, 142, 0.1);
       transition: transform 0.2s, box-shadow 0.2s;
     }
@@ -662,55 +668,80 @@
     }
 
     .endorse-tile img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    /* Featured: spans 2x2 and fills it, so its image is taken out of flow
-       and cover-cropped to whatever height the rows end up. */
-    .endorse-tile-feature {
-      grid-column: span 2;
-      grid-row: span 2;
-      background: var(--blue);
-    }
-
-    .endorse-tile-feature img {
       position: absolute;
       inset: 0;
+      width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: top;
-      transition: opacity 0.35s ease;
     }
 
-    /* Hover/focus swaps the photo for the quote graphic. */
-    .endorse-tile-feature .endorse-swap { opacity: 0; }
-    .endorse-tile-feature:hover .endorse-swap,
-    .endorse-tile-feature:focus-visible .endorse-swap { opacity: 1; }
-
-    /* The square coalition graphic in a portrait 1x1 cell: letterboxed on
-       a red that matches its own top and bottom bands. */
-    .endorse-tile-square {
-      aspect-ratio: 4 / 5;
-      background: #e8232a;
+    .endorse-tile.is-feature,
+    .endorse-tile.is-feature-right {
+      grid-column: span 2;
+      grid-row: span 2;
+      aspect-ratio: auto;
     }
 
-    .endorse-tile-square img {
+    .endorse-tile.is-feature-right { grid-column: 3 / span 2; }
+
+    /* Optional hover swap on any tile: a second image fades in. */
+    .endorse-tile img { transition: opacity 0.35s ease; }
+    .endorse-tile .endorse-swap { opacity: 0; }
+    .endorse-tile:hover .endorse-swap,
+    .endorse-tile:focus-visible .endorse-swap { opacity: 1; }
+
+    /* Square graphics (the coalition card) letterbox on their own red. */
+    .endorse-tile.is-square { background: #e8232a; }
+    .endorse-tile.is-square img { object-fit: contain; object-position: center; }
+
+    .endorse-tile.is-new::after {
+      content: "New";
       position: absolute;
-      inset: 0;
-      height: 100%;
-      object-fit: contain;
+      top: 0.6rem;
+      right: 0.6rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
-    .endorse-all {
-      margin-top: 1.5rem;
-      text-align: center;
-    }
-
-    .endorse-all a {
+    .endorse-group {
+      grid-column: 1 / -1;
+      margin: 1rem 0 -0.25rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      color: var(--blue);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+
+    .endorse-tile-cta {
+      grid-column: span 2;
+      aspect-ratio: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1.5rem 2rem;
+      background: var(--navy);
+      color: var(--cream);
+      text-decoration: none;
+    }
+
+    .endorse-tile-cta strong {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+
+    .endorse-tile-cta span {
+      font-weight: 700;
+      color: var(--gold);
     }
 
     @media (max-width: 760px) {
@@ -719,15 +750,19 @@
         gap: 0.75rem;
       }
 
-      .endorse-tile-feature {
+      .endorse-tile.is-feature,
+      .endorse-tile.is-feature-right {
+        grid-column: 1 / -1;
         grid-row: span 1;
         aspect-ratio: 4 / 5;
       }
+
+      .endorse-tile-cta { grid-column: 1 / -1; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .endorse-tile,
-      .endorse-tile-feature img { transition: none; }
+      .endorse-tile img { transition: none; }
     }
 
     /* ===== GET INVOLVED ===== */
@@ -1223,15 +1258,21 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
   <!-- ===== ENDORSEMENTS ===== -->
   <section class="section endorsements" id="endorsements">
     <div class="section-inner">
-      <h2 class="section-heading">Endorsements</h2>
+      <h2 class="section-heading">Endorsements &amp; Recognition</h2>
       <div class="endorse-bento">
-        <a class="endorse-tile endorse-tile-feature" href="endorsements.html#chad-hall">
+        <a class="endorse-tile is-feature" href="endorsements.html#chad-hall">
           <img src="images/endorsements/chad-hall.jpg" alt="Endorsement from Chad Hall, former Ward 4 candidate" width="410" height="512">
           <img class="endorse-swap" src="images/endorsements/chad-hall-quote.jpg" alt="" aria-hidden="true" loading="lazy" width="410" height="512">
           <span class="site-sr-only">Chad Hall: &ldquo;This election made it clear that there is a desire for a change in how Ward 4 is represented at City Hall. I believe Kyle and I are more closely aligned in our vision for Fayetteville and in the priorities we believe need continued attention.&rdquo;</span>
         </a>
-        <a class="endorse-tile endorse-tile-square" href="endorsements.html#aco-aru">
+        <a class="endorse-tile" href="endorsements.html#gun-sense-candidate">
+          <img src="images/endorsements/gun-sense-2026.jpg" alt="Kyle Smith, 2026 Moms Demand Action Gun Sense Candidate distinction" loading="lazy" width="1080" height="1350">
+        </a>
+        <a class="endorse-tile is-square" href="endorsements.html#aco-aru">
           <img src="images/endorsements/aco-aru.jpg" alt="Arkansas Community Organizations and Arkansas Renters United endorse Kyle Smith for City Council, Ward 4, Position 1" loading="lazy" width="2000" height="2000">
+        </a>
+        <a class="endorse-tile is-new" href="endorsements.html#kara-paxton">
+          <img src="images/endorsements/kara-paxton.jpg" alt="Endorsement from Kara Paxton, City Clerk Treasurer, standing with Kyle outside City Hall" loading="lazy" width="512" height="640">
         </a>
         <a class="endorse-tile" href="endorsements.html#dandre-jones">
           <img src="images/endorsements/dandre-jones.jpg" alt="Endorsement from Dr. D&rsquo;Andre Jones, Fayetteville City Council, Ward 1" loading="lazy" width="1080" height="1350">
@@ -1239,23 +1280,26 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         <a class="endorse-tile" href="endorsements.html#keaton-smith">
           <img src="images/endorsements/keaton-smith.jpg" alt="Endorsement from Keaton Smith, Fayetteville School Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
         </a>
-        <a class="endorse-tile" href="endorsements.html#clark-eckels">
-          <img src="images/endorsements/clark-eckels.jpg" alt="Endorsement from Clark Eckels, Fayetteville Strong, standing with Kyle and a friend around a strawberry mural" loading="lazy" width="410" height="512">
-        </a>
-        <a class="endorse-tile" href="endorsements.html#lara-bell-phillips">
-          <img src="images/endorsements/lara-bell-phillips.jpg" alt="Endorsement from Lara Bell Phillips, For Fayetteville, smiling cheek to cheek with Kyle" loading="lazy" width="1080" height="1350">
-        </a>
         <a class="endorse-tile" href="endorsements.html#megan-hurley">
           <img src="images/endorsements/megan-hurley.jpg" alt="Endorsement from Megan Hurley, former Fayetteville School Board member, in a selfie with Kyle outdoors" loading="lazy" width="1080" height="1350">
-        </a>
-        <a class="endorse-tile" href="endorsements.html#rob-qualls">
-          <img src="images/endorsements/rob-qualls.jpg" alt="Endorsement from Rob Qualls, Fayetteville Public Library Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
         </a>
         <a class="endorse-tile" href="endorsements.html#lissa-kelly">
           <img src="images/endorsements/lissa-kelly.jpg" alt="Endorsement from Lissa Kelly, Heritage Village HOA, laughing with Kyle at an event" loading="lazy" width="819" height="1024">
         </a>
+        <a class="endorse-tile" href="endorsements.html#clark-eckels">
+          <img src="images/endorsements/clark-eckels.jpg" alt="Endorsement from Clark Eckels, Fayetteville Strong, standing with Kyle and a friend around a strawberry mural" loading="lazy" width="410" height="512">
+        </a>
+        <a class="endorse-tile" href="endorsements.html#rob-qualls">
+          <img src="images/endorsements/rob-qualls.jpg" alt="Endorsement from Rob Qualls, Fayetteville Public Library Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
+        </a>
+        <a class="endorse-tile" href="endorsements.html#lara-bell-phillips">
+          <img src="images/endorsements/lara-bell-phillips.jpg" alt="Endorsement from Lara Bell Phillips, For Fayetteville, smiling cheek to cheek with Kyle" loading="lazy" width="1080" height="1350">
+        </a>
+        <a class="endorse-tile endorse-tile-cta" href="endorsements.html">
+          <strong>Who&rsquo;s with Kyle, and why</strong>
+          <span>Read what they said &rarr;</span>
+        </a>
       </div>
-      <p class="endorse-all"><a href="endorsements.html">Read what they said &rarr;</a></p>
     </div>
   </section>
 

@@ -136,6 +136,14 @@
       font-weight: 600;
       color: var(--blue);
     }
+    .recognition-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      color: var(--navy);
+      margin: 3rem 0 1.25rem;
+    }
+    .endorsement p + p { margin-top: 0.75rem; }
+    .endorsement .note { font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
     /* Endorsers without a graphic yet: one column, no image slot. */
     .endorsement-text { grid-template-columns: 1fr; }
 
@@ -271,6 +279,15 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
       </div>
     </article>
 
+    <article class="endorsement" id="kara-paxton">
+      <img src="images/endorsements/kara-paxton.jpg" alt="Endorsement from Kara Paxton, City Clerk Treasurer, standing with Kyle outside City Hall" loading="lazy" width="512" height="640">
+      <div>
+        <h2>Kara Paxton</h2>
+        <p class="role">City Clerk Treasurer</p>
+        <!-- <blockquote><p>Testimonial goes here.</p></blockquote> -->
+      </div>
+    </article>
+
     <article class="endorsement" id="dandre-jones">
       <img src="images/endorsements/dandre-jones.jpg" alt="Endorsement from Dr. D&rsquo;Andre Jones, Fayetteville City Council, Ward 1" loading="lazy" width="1080" height="1350">
       <div>
@@ -386,6 +403,20 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
       </div>
     </article>
 
+
+    <!-- Recognition is kept apart from endorsements on purpose: Moms Demand
+         Action requires that the Gun Sense Candidate distinction not be
+         presented as an endorsement. -->
+    <h2 class="recognition-heading">Recognition</h2>
+    <article class="endorsement" id="gun-sense-candidate">
+      <img src="images/endorsements/gun-sense-2026.jpg" alt="Kyle Smith, 2026 Moms Demand Action Gun Sense Candidate distinction" loading="lazy" width="1080" height="1350">
+      <div>
+        <h2>2026 Gun Sense Candidate</h2>
+        <p class="role">Moms Demand Action</p>
+        <p>Kyle has been awarded the 2026 Moms Demand Action Gun Sense Candidate distinction, which recognizes candidates who advocate for gun violence prevention and will govern with gun safety in mind.</p>
+        <p class="note">The Gun Sense Candidate distinction is not an endorsement from Moms Demand Action or Everytown for Gun Safety Action Fund.</p>
+      </div>
+    </article>
   </main>
 
   <footer class="footer">
