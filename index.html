@@ -641,9 +641,9 @@
                             (for a second spotlight further down)
          .is-new            "New" tag in the corner for recent additions
          .endorse-group     full-width label row to split tiers/groups
-         .endorse-tile-cta  2-wide "read more" tile to square off a row
+         .endorse-tile-cta  text tile (1 cell; add .is-wide for 2) to square off a row
        docs/endorsement-grid-patterns.html shows each one. Keep each row
-       full: count cells (feature = 4, cta = 2, others = 1) to a multiple
+       full: count cells (feature = 4, wide cta = 2, others = 1) to a multiple
        of 4 within each group, or add/remove the cta tile. */
     .endorse-bento {
       display: grid;
@@ -745,7 +745,6 @@
     }
 
     .endorse-tile-cta {
-      grid-column: span 2;
       aspect-ratio: auto;
       display: flex;
       flex-direction: column;
@@ -756,6 +755,8 @@
       color: var(--cream);
       text-decoration: none;
     }
+
+    .endorse-tile-cta.is-wide { grid-column: span 2; }
 
     .endorse-tile-cta strong {
       font-family: 'Playfair Display', Georgia, serif;
@@ -781,7 +782,7 @@
         aspect-ratio: 4 / 5;
       }
 
-      .endorse-tile-cta { grid-column: 1 / -1; }
+      .endorse-tile-cta.is-wide { grid-column: 1 / -1; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1257,7 +1258,7 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
     <div class="section-inner">
       <h2 class="section-heading">Endorsements &amp; Recognition</h2>
       <div class="endorse-bento">
-        <a class="endorse-tile is-new" href="endorsements.html#gun-sense-candidate">
+        <a class="endorse-tile" href="endorsements.html#gun-sense-candidate">
           <img src="images/endorsements/gun-sense-2026.jpg" alt="Kyle Smith, 2026 Moms Demand Action Gun Sense Candidate distinction" loading="lazy" width="1080" height="1350">
           <img class="endorse-swap is-on" src="images/endorsements/quotes/gun-sense-q1.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
           <span class="site-sr-only">From Kyle: &ldquo;Whether we&rsquo;re taking our kids to the park or spending an evening on Dickson Street, we should be able to enjoy Fayetteville without fear of gun violence.&rdquo;</span>
@@ -1267,28 +1268,47 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
           <img class="endorse-swap is-on" src="images/endorsements/quotes/aco-aru-q1.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
           <span class="site-sr-only">From Kyle: &ldquo;Everyone deserves a safe, affordable place to live.&rdquo;</span>
         </a>
+        <a class="endorse-tile" href="endorsements.html#pinpoint">
+          <img src="images/endorsements/pinpoint.jpg" alt="Endorsement from Pinpoint Fayetteville" loading="lazy" width="1080" height="1350">
+        </a>
         <a class="endorse-tile endorse-tile-cta" href="endorsements.html">
           <strong>Who&rsquo;s with Kyle, and why</strong>
           <span>Read what they said &rarr;</span>
         </a>
         <p class="endorse-group">Public officials</p>
-        <a class="endorse-tile is-feature is-new" href="endorsements.html#kara-paxton">
+        <a class="endorse-tile is-feature" href="endorsements.html#kara-paxton">
           <img src="images/endorsements/kara-paxton.jpg" alt="Endorsement from Kara Paxton, City Clerk Treasurer, standing with Kyle outside City Hall" loading="lazy" width="512" height="640">
           <img class="endorse-swap is-on" src="images/endorsements/quotes/kara-paxton-q1.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
           <span class="site-sr-only">Kara Paxton: &ldquo;Kyle understands that good government starts with listening. Ward 4 deserves a council member who listens first and follows through.&rdquo;</span>
+        </a>
+        <a class="endorse-tile is-new" href="endorsements.html#bob-stafford">
+          <img src="images/endorsements/bob-stafford.jpg" alt="Endorsement from Bob Stafford, Fayetteville City Council, Ward 1" loading="lazy" width="256" height="320">
         </a>
         <a class="endorse-tile" href="endorsements.html#dandre-jones">
           <img src="images/endorsements/dandre-jones.jpg" alt="Endorsement from Dr. D&rsquo;Andre Jones, Fayetteville City Council, Ward 1" loading="lazy" width="1080" height="1350">
           <img class="endorse-swap is-on" src="images/endorsements/quotes/dandre-jones-q1.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
           <span class="site-sr-only">Dr. D&rsquo;Andre Jones: &ldquo;In order to move our city forward, we need bold, progressive, collaborative leadership. Kyle Smith is the right choice!&rdquo;</span>
         </a>
-        <a class="endorse-tile is-new" href="endorsements.html#beth-coger">
+        <a class="endorse-tile" href="endorsements.html#sarah-marsh">
+          <img src="images/endorsements/sarah-marsh.jpg" alt="Endorsement from Sarah Marsh, former City Council member, in a selfie with Kyle at a solar array" loading="lazy" width="1080" height="1350">
+          <img class="endorse-swap is-on" src="images/endorsements/quotes/sarah-marsh-q1.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
+          <img class="endorse-swap" src="images/endorsements/quotes/sarah-marsh-q2.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
+          <img class="endorse-swap" src="images/endorsements/quotes/sarah-marsh-q3.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
+          <span class="site-sr-only">Sarah Marsh: &ldquo;He&rsquo;s a diligent researcher and policy wonk with an excellent understanding of how to solve Fayetteville&rsquo;s housing and transportation crises.&rdquo; &ldquo;Having served with both Smith and Turk on the City Council, Kyle Smith is a vastly superior choice in this race.&rdquo; &ldquo;If you want housing options you can afford, improved public transit, more trails and sidewalks, and places for small businesses, vote for Kyle Smith.&rdquo;</span>
+        </a>
+        <a class="endorse-tile" href="endorsements.html#matthew-petty">
+          <img src="images/endorsements/matthew-petty.jpg" alt="Endorsement from Matthew Petty, former City Council member" loading="lazy" width="1080" height="1350">
+        </a>
+        <a class="endorse-tile" href="endorsements.html#beth-coger">
           <img src="images/endorsements/beth-coger.jpg" alt="Endorsement from Beth Coger, Washington County Justice of the Peace" loading="lazy" width="1080" height="1350">
         </a>
-        <a class="endorse-tile" href="endorsements.html#keaton-smith">
-          <img src="images/endorsements/keaton-smith.jpg" alt="Endorsement from Keaton Smith, Fayetteville School Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
-          <img class="endorse-swap is-on" src="images/endorsements/quotes/keaton-smith-q1.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
-          <span class="site-sr-only">Keaton Smith: &ldquo;He has the discernment to push for the right projects in the right places and press pause when we&rsquo;re going in the wrong direction.&rdquo;</span>
+        <a class="endorse-tile is-new" href="endorsements.html#evelyn-rios-stafford">
+          <img src="images/endorsements/evelyn-rios-stafford.jpg" alt="Endorsement from Evelyn Rios Stafford, Washington County Justice of the Peace" loading="lazy" width="256" height="320">
+        </a>
+        <a class="endorse-tile is-new" href="endorsements.html#vladimir-rivera-lopez">
+          <img src="images/endorsements/vladimir-rivera-lopez.jpg" alt="Endorsement from Vladimir Rivera Lopez, Washington County Justice of the Peace, holding a yard sign with Kyle" loading="lazy" width="1080" height="1350">
+          <img class="endorse-swap is-on" src="images/endorsements/quotes/vladimir-rivera-lopez-q1.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
+          <span class="site-sr-only">Vladimir Rivera Lopez: &ldquo;I find not only a like mind but a familiar spirit. I have no reservations endorsing Kyle Smith to Fayetteville City Council.&rdquo;</span>
         </a>
         <a class="endorse-tile" href="endorsements.html#rob-qualls">
           <img src="images/endorsements/rob-qualls.jpg" alt="Endorsement from Rob Qualls, Fayetteville Public Library Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
@@ -1297,6 +1317,18 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
           <img class="endorse-swap" src="images/endorsements/quotes/rob-qualls-q3.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
           <img class="endorse-swap" src="images/endorsements/quotes/rob-qualls-q4.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
           <span class="site-sr-only">Rob Qualls: &ldquo;Easily the most knowledgeable person on Fayetteville city government who doesn&rsquo;t actually work in it.&rdquo; &ldquo;Kyle arrives at every decision through a rare blend of research, analysis, and compassion.&rdquo; &ldquo;Kyle acts with a sense of urgency that I find missing on our Current City Council.&rdquo; &ldquo;It takes leaders like Kyle to move beyond rhetoric and do the hard work of removing the barriers to housing and success that too many in our community face.&rdquo;</span>
+        </a>
+        <a class="endorse-tile" href="endorsements.html#keaton-smith">
+          <img src="images/endorsements/keaton-smith.jpg" alt="Endorsement from Keaton Smith, Fayetteville School Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
+          <img class="endorse-swap is-on" src="images/endorsements/quotes/keaton-smith-q1.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
+          <span class="site-sr-only">Keaton Smith: &ldquo;He has the discernment to push for the right projects in the right places and press pause when we&rsquo;re going in the wrong direction.&rdquo;</span>
+        </a>
+        <a class="endorse-tile" href="endorsements.html#megan-hurley">
+          <img src="images/endorsements/megan-hurley.jpg" alt="Endorsement from Megan Hurley, former Fayetteville School Board member, in a selfie with Kyle outdoors" loading="lazy" width="1080" height="1350">
+        </a>
+        <a class="endorse-tile endorse-tile-cta is-wide" href="#involved">
+          <strong>Add your name</strong>
+          <span>Join them &rarr;</span>
         </a>
         <p class="endorse-group">Community leaders</p>
         <a class="endorse-tile" href="endorsements.html#lissa-kelly">
@@ -1316,29 +1348,13 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
           <img class="endorse-swap is-on" src="images/endorsements/chad-hall-quote.jpg" alt="" aria-hidden="true" loading="lazy" width="410" height="512">
           <span class="site-sr-only">Chad Hall: &ldquo;This election made it clear that there is a desire for a change in how Ward 4 is represented at City Hall. I believe Kyle and I are more closely aligned in our vision for Fayetteville and in the priorities we believe need continued attention.&rdquo;</span>
         </a>
-        <a class="endorse-tile" href="endorsements.html#megan-hurley">
-          <img src="images/endorsements/megan-hurley.jpg" alt="Endorsement from Megan Hurley, former Fayetteville School Board member, in a selfie with Kyle outdoors" loading="lazy" width="1080" height="1350">
-        </a>
         <a class="endorse-tile" href="endorsements.html#lara-bell-phillips">
           <img src="images/endorsements/lara-bell-phillips.jpg" alt="Endorsement from Lara Bell Phillips, For Fayetteville, smiling cheek to cheek with Kyle" loading="lazy" width="1080" height="1350">
           <img class="endorse-swap is-on" src="images/endorsements/quotes/lara-bell-phillips-q1.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
           <span class="site-sr-only">Lara Bell Phillips: &ldquo;He does the hard work, he stays with it, and he stands up for the idea that everyone in Fayetteville deserves to be treated fairly.&rdquo;</span>
         </a>
-        <a class="endorse-tile is-new" href="endorsements.html#matthew-petty">
-          <img src="images/endorsements/matthew-petty.jpg" alt="Endorsement from Matthew Petty, former City Council member" loading="lazy" width="1080" height="1350">
-        </a>
-        <a class="endorse-tile is-new" href="endorsements.html#sarah-marsh">
-          <img src="images/endorsements/sarah-marsh.jpg" alt="Endorsement from Sarah Marsh, former City Council member, in a selfie with Kyle at a solar array" loading="lazy" width="1080" height="1350">
-          <img class="endorse-swap is-on" src="images/endorsements/quotes/sarah-marsh-q1.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
-          <img class="endorse-swap" src="images/endorsements/quotes/sarah-marsh-q2.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
-          <img class="endorse-swap" src="images/endorsements/quotes/sarah-marsh-q3.jpg" alt="" aria-hidden="true" loading="lazy" width="1080" height="1350">
-          <span class="site-sr-only">Sarah Marsh: &ldquo;He&rsquo;s a diligent researcher and policy wonk with an excellent understanding of how to solve Fayetteville&rsquo;s housing and transportation crises.&rdquo; &ldquo;Having served with both Smith and Turk on the City Council, Kyle Smith is a vastly superior choice in this race.&rdquo; &ldquo;If you want housing options you can afford, improved public transit, more trails and sidewalks, and places for small businesses, vote for Kyle Smith.&rdquo;</span>
-        </a>
-        <a class="endorse-tile is-new" href="endorsements.html#olivia-trimble">
+        <a class="endorse-tile" href="endorsements.html#olivia-trimble">
           <img src="images/endorsements/olivia-trimble.jpg" alt="Endorsement from Olivia Trimble, local artist" loading="lazy" width="1080" height="1350">
-        </a>
-        <a class="endorse-tile is-new" href="endorsements.html#pinpoint">
-          <img src="images/endorsements/pinpoint.jpg" alt="Endorsement from Pinpoint Fayetteville" loading="lazy" width="1080" height="1350">
         </a>
       </div>
     </div>
