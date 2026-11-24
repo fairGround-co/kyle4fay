@@ -676,11 +676,13 @@
       object-position: top;
     }
 
+    /* Features carry their own 4:5 shape so a row holding only spanning
+       tiles (the offset quorum court layout) still gets its height. */
     .endorse-tile.is-feature,
     .endorse-tile.is-feature-right {
       grid-column: span 2;
       grid-row: span 2;
-      aspect-ratio: auto;
+      aspect-ratio: 4 / 5;
     }
 
     .endorse-tile.is-feature-right { grid-column: 3 / span 2; }
