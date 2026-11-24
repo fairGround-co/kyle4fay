@@ -214,19 +214,31 @@
       object-fit: cover;
     }
 
-    .policy-slide figcaption {
-      padding: 1rem 1.25rem 1.15rem;
-      font-size: 0.92rem;
-      line-height: 1.55;
-      text-align: left;
+    /* Rotating text in the hero copy column, synced with the photo. All
+       captions share one grid cell so the column never jumps in height. */
+    .policy-captions {
+      display: grid;
     }
 
-    .policy-slide figcaption strong {
+    .policy-caption {
+      grid-area: 1 / 1;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0s linear 0.6s;
+    }
+
+    .policy-caption.is-active {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.6s ease;
+    }
+
+    .policy-caption strong {
       display: block;
-      color: var(--orange);
-      font-size: 1.15rem;
+      color: var(--gold);
+      font-size: 1.2rem;
       font-weight: 800;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.3rem;
     }
 
     .policy-dots {
@@ -255,7 +267,9 @@
 
     @media (prefers-reduced-motion: reduce) {
       .policy-slide,
-      .policy-slide.is-active {
+      .policy-slide.is-active,
+      .policy-caption,
+      .policy-caption.is-active {
         transition: none;
       }
     }
@@ -1336,7 +1350,13 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
       <div class="hero-text">
         <img class="hero-logo" src="images/logo-banner-hero.png" alt="Kyle Smith for Fayetteville City Council, Ward 4" width="840" height="246" loading="eager">
         <h1>A City That Works for Everyone</h1>
-        <p class="subtitle">Fayetteville is getting too expensive for the people who make it work. I&rsquo;ll fight for rules that bring housing prices down, fix our water and sewer before costs get passed on to you, and turn the city&rsquo;s plans into actions that make life more affordable.</p>
+        <div class="subtitle policy-captions">
+          <p class="policy-caption is-active"><strong>An Affordable Fayetteville</strong>I&rsquo;ll fight for rules to bring housing prices down. The people who work here and the kids who grow up here should be able to afford to live here.</p>
+          <p class="policy-caption" aria-hidden="true"><strong>Fixing Water and Sewer Pipes</strong>Let&rsquo;s fix our aging pipes before they break to help save you money on your water bills.</p>
+          <p class="policy-caption" aria-hidden="true"><strong>Better and Safer Transportation</strong>I&rsquo;ll support safe routes to schools, safer crosswalks, connected sidewalks, bike routes, and more transit options.</p>
+          <p class="policy-caption" aria-hidden="true"><strong>Environmental Protection</strong>I&rsquo;ll support smarter planning that reduces traffic, pollution, and stormwater runoff while protecting our trees. When the rules are broken, I&rsquo;ll work to fix them.</p>
+          <p class="policy-caption" aria-hidden="true"><strong>Supporting Local Businesses and Jobs</strong>I&rsquo;ll support local businesses so they can succeed and create jobs that pay a living wage.</p>
+        </div>
         <div class="hero-dates">
           <div>
             <span class="hero-dates-label">Early Voting</span>
@@ -1364,23 +1384,18 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         <div class="policy-slides">
           <figure class="policy-slide is-active" aria-roledescription="slide" aria-label="1 of 5">
             <img src="images/policy/affordable.jpg" alt="Kyle talking with a neighbor in front of townhomes" width="934" height="1400" loading="eager" style="object-position: 60% 30%;">
-            <figcaption><strong>An Affordable Fayetteville</strong>I&rsquo;ll fight for rules to bring housing prices down. The people who work here and the kids who grow up here should be able to afford to live here.</figcaption>
           </figure>
           <figure class="policy-slide" aria-roledescription="slide" aria-label="2 of 5" aria-hidden="true">
             <img src="images/policy/leaks.jpg" alt="Kyle kneeling beside water from a leaking pipe running down a curb" width="1400" height="1234" loading="lazy" style="object-position: 30% 40%;">
-            <figcaption><strong>Fixing Water and Sewer Pipes</strong>Let&rsquo;s fix our aging pipes before they break to help save you money on your water bills.</figcaption>
           </figure>
           <figure class="policy-slide" aria-roledescription="slide" aria-label="3 of 5" aria-hidden="true">
             <img src="images/policy/transportation.jpg" alt="Kyle pointing to an Ozark Regional Transit bus stop sign" width="1400" height="934" loading="lazy" style="object-position: 45% 40%;">
-            <figcaption><strong>Better and Safer Transportation</strong>I&rsquo;ll support safe routes to schools, safer crosswalks, connected sidewalks, bike routes, and more transit options.</figcaption>
           </figure>
           <figure class="policy-slide" aria-roledescription="slide" aria-label="4 of 5" aria-hidden="true">
             <img src="images/policy/environment.jpg" alt="Kyle walking and talking with a neighbor on a wooded trail" width="1400" height="934" loading="lazy" style="object-position: 55% 50%;">
-            <figcaption><strong>Environmental Protection</strong>I&rsquo;ll support smarter planning that reduces traffic, pollution, and stormwater runoff while protecting our trees. When the rules are broken, I&rsquo;ll work to fix them.</figcaption>
           </figure>
           <figure class="policy-slide" aria-roledescription="slide" aria-label="5 of 5" aria-hidden="true">
             <img src="images/policy/business.jpg" alt="Kyle buying a coffee at a local climbing gym caf&eacute;" width="1400" height="934" loading="lazy" style="object-position: 62% 40%;">
-            <figcaption><strong>Supporting Local Businesses and Jobs</strong>I&rsquo;ll support local businesses so they can succeed and create jobs that pay a living wage.</figcaption>
           </figure>
         </div>
         <div class="policy-dots" role="group" aria-label="Choose a priority">
@@ -1945,6 +1960,7 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
       if (!root) return;
       var slides = root.querySelectorAll('.policy-slide');
       var dots = root.querySelectorAll('.policy-dots button');
+      var caps = document.querySelectorAll('.policy-caption');
       var i = 0, timer = null, paused = false;
       var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       function show(n) {
@@ -1953,6 +1969,10 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
           s.classList.toggle('is-active', k === i);
           s.setAttribute('aria-hidden', k === i ? 'false' : 'true');
           if (k === i) s.querySelector('img').loading = 'eager';
+        });
+        caps.forEach(function (c, k) {
+          c.classList.toggle('is-active', k === i);
+          c.setAttribute('aria-hidden', k === i ? 'false' : 'true');
         });
         dots.forEach(function (d, k) {
           if (k === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
