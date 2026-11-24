@@ -129,37 +129,138 @@
       margin-bottom: 0.15rem;
     }
 
-    .hero-dates time {
+    .hero-dates > div {
+      flex: 1 1 14rem;
+    }
+
+    .hero-dates-when {
       font-size: 0.95rem;
       font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-dates-where {
+      list-style: none;
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    .hero-dates-where li + li {
+      margin-top: 0.4rem;
+    }
+
+    .hero-dates-where a,
+    .hero-dates-more {
+      color: var(--cream);
+      text-decoration: underline;
+      text-decoration-color: rgba(255, 242, 227, 0.4);
+      text-underline-offset: 2px;
+    }
+
+    .hero-dates-where a:hover,
+    .hero-dates-more:hover {
+      text-decoration-color: var(--gold);
+    }
+
+    .hero-dates-more {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    /* ===== POLICY CAROUSEL (hero) ===== */
+    .policy-carousel {
+      width: 100%;
+      max-width: 520px;
+      justify-self: center;
+    }
+
+    .policy-slides {
+      display: grid;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--navy);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    /* All slides share one grid cell, so the box sizes to the tallest
+       caption and nothing jumps when slides change. */
+    .policy-slide {
+      grid-area: 1 / 1;
+      margin: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0s linear 0.6s;
+    }
+
+    .policy-slide.is-active {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.6s ease;
+    }
+
+    .policy-slide img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 5 / 4;
+      object-fit: cover;
+    }
+
+    .policy-slide figcaption {
+      padding: 1rem 1.25rem 1.15rem;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      text-align: left;
+    }
+
+    .policy-slide figcaption strong {
+      display: block;
+      color: var(--orange);
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .policy-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 0.9rem;
+    }
+
+    .policy-dots button {
+      width: 11px;
+      height: 11px;
+      padding: 0;
+      border-radius: 50%;
+      border: 2px solid var(--cream);
+      background: transparent;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    .policy-dots button[aria-current="true"] {
+      background: var(--gold);
+      border-color: var(--gold);
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .policy-slide,
+      .policy-slide.is-active {
+        transition: none;
+      }
     }
 
     .hero-buttons {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
-    }
-
-    .hero-photo {
-      display: flex;
-      justify-content: center;
-      /* Without this the img is a stretch-aligned flex item, so its height is
-         taken from the flex line instead of its own ratio -- which is what was
-         pulling the portrait tall. */
-      align-items: center;
-    }
-
-    .hero-photo img {
-      display: block;
-      width: 100%;
-      max-width: 380px;
-      /* The file is already cropped to 3:4, so it just renders at its own
-         ratio. No aspect-ratio or object-fit: with nothing to crop, that
-         machinery could only ever distort the framing, never improve it. */
-      height: auto;
-      border-radius: 16px;
-      border: 4px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
 
     .btn {
@@ -1089,12 +1190,12 @@
         justify-content: center;
       }
 
-      .hero-photo {
-        order: -1;
+      .hero-dates {
+        text-align: left;
       }
 
-      .hero-photo img {
-        max-width: 280px;
+      .policy-carousel {
+        max-width: 480px;
       }
 
       .about-grid {
@@ -1232,15 +1333,21 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
       <div class="hero-text">
         <img class="hero-logo" src="images/logo-banner-hero.png" alt="Kyle Smith for Fayetteville City Council, Ward 4" width="840" height="246" loading="eager">
         <h1>A City That Works for Everyone</h1>
-        <p class="subtitle">Fayetteville has incredible potential &mdash; and the plans to match it. Now we need leadership that follows through: progressive in our values, conservative with our finances.</p>
+        <p class="subtitle">Fayetteville is getting too expensive for the people who make it work. I&rsquo;ll fight for rules that bring housing prices down, fix our water and sewer before costs get passed on to you, and turn the city&rsquo;s plans into actions that make life more affordable.</p>
         <div class="hero-dates">
           <div>
-            <span class="hero-dates-label">Runoff Election Day</span>
-            <time datetime="2026-12-01">Tuesday, December 1, 2026</time>
+            <span class="hero-dates-label">Early Voting</span>
+            <p class="hero-dates-when"><time datetime="2026-11-24">Nov.&nbsp;24</time>, 25, 27 &amp;&nbsp;30 &middot; <span class="nowrap">8&nbsp;a.m.&ndash;4:30&nbsp;p.m.</span></p>
+            <p class="hero-dates-where"><a href="https://www.google.com/maps/search/?api=1&amp;query=Washington+County+Courthouse+280+N+College+Ave+Fayetteville+AR" target="_blank" rel="noopener">Washington County Courthouse<br><span class="nowrap">280&nbsp;N.&nbsp;College&nbsp;Ave.</span></a></p>
           </div>
           <div>
-            <span class="hero-dates-label">Early voting begins</span>
-            <time datetime="2026-11-24">Tuesday, November 24, 2026</time>
+            <span class="hero-dates-label">Runoff Election Day</span>
+            <p class="hero-dates-when"><time datetime="2026-12-01">Tuesday, Dec.&nbsp;1</time> &middot; <span class="nowrap">7:30&nbsp;a.m.&ndash;7:30&nbsp;p.m.</span></p>
+            <ul class="hero-dates-where">
+              <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Covenant+Church+4511+W+Wedington+Dr+Fayetteville+AR" target="_blank" rel="noopener">Covenant Church<br><span class="nowrap">4511&nbsp;W.&nbsp;Wedington&nbsp;Dr.</span></a></li>
+              <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Fayetteville+Church+of+Christ+2416+Deane+Solomon+Rd+Fayetteville+AR" target="_blank" rel="noopener">Fayetteville Church of Christ<br><span class="nowrap">2416&nbsp;Deane&nbsp;Solomon&nbsp;Rd.</span></a></li>
+            </ul>
+            <a class="hero-dates-more" href="https://www.washingtoncountyar.gov/government/departments-a-e/election-commission/december-1-2026-general-election-run-off" target="_blank" rel="noopener">All Washington County runoff locations &rarr;</a>
           </div>
         </div>
 
@@ -1250,8 +1357,36 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
           <a href="https://goodchange.app/donate/kyle4fay?mk=website-13&refcode=home-hero&num=20.26" class="btn btn-outline">Contribute</a>
         </div>
       </div>
-      <div class="hero-photo">
-        <img src="images/headshot-2026.jpg" alt="Kyle Smith, candidate for Fayetteville City Council Ward 4" width="900" height="1200" loading="eager">
+      <div class="policy-carousel" role="region" aria-roledescription="carousel" aria-label="Kyle&rsquo;s priorities">
+        <div class="policy-slides">
+          <figure class="policy-slide is-active" aria-roledescription="slide" aria-label="1 of 5">
+            <img src="images/policy/affordable.jpg" alt="Kyle talking with a neighbor in front of townhomes" width="934" height="1400" loading="eager" style="object-position: 60% 30%;">
+            <figcaption><strong>An Affordable Fayetteville</strong>I&rsquo;ll fight for rules to bring housing prices down. The people who work here and the kids who grow up here should be able to afford to live here.</figcaption>
+          </figure>
+          <figure class="policy-slide" aria-roledescription="slide" aria-label="2 of 5" aria-hidden="true">
+            <img src="images/policy/leaks.jpg" alt="Kyle kneeling beside water from a leaking pipe running down a curb" width="1400" height="1234" loading="lazy" style="object-position: 30% 40%;">
+            <figcaption><strong>Fixing Water and Sewer Pipes</strong>Let&rsquo;s fix our aging pipes before they break to help save you money on your water bills.</figcaption>
+          </figure>
+          <figure class="policy-slide" aria-roledescription="slide" aria-label="3 of 5" aria-hidden="true">
+            <img src="images/policy/transportation.jpg" alt="Kyle pointing to an Ozark Regional Transit bus stop sign" width="1400" height="934" loading="lazy" style="object-position: 45% 40%;">
+            <figcaption><strong>Better and Safer Transportation</strong>I&rsquo;ll support safe routes to schools, safer crosswalks, connected sidewalks, bike routes, and more transit options.</figcaption>
+          </figure>
+          <figure class="policy-slide" aria-roledescription="slide" aria-label="4 of 5" aria-hidden="true">
+            <img src="images/policy/environment.jpg" alt="Kyle walking and talking with a neighbor on a wooded trail" width="1400" height="934" loading="lazy" style="object-position: 55% 50%;">
+            <figcaption><strong>Environmental Protection</strong>I&rsquo;ll support smarter planning that reduces traffic, pollution, and stormwater runoff while protecting our trees. When the rules are broken, I&rsquo;ll work to fix them.</figcaption>
+          </figure>
+          <figure class="policy-slide" aria-roledescription="slide" aria-label="5 of 5" aria-hidden="true">
+            <img src="images/policy/business.jpg" alt="Kyle buying a coffee at a local climbing gym caf&eacute;" width="1400" height="934" loading="lazy" style="object-position: 62% 40%;">
+            <figcaption><strong>Supporting Local Businesses and Jobs</strong>I&rsquo;ll support local businesses so they can succeed and create jobs that pay a living wage.</figcaption>
+          </figure>
+        </div>
+        <div class="policy-dots" role="group" aria-label="Choose a priority">
+          <button type="button" aria-label="An Affordable Fayetteville" aria-current="true"></button>
+          <button type="button" aria-label="Fixing Water and Sewer Pipes"></button>
+          <button type="button" aria-label="Better and Safer Transportation"></button>
+          <button type="button" aria-label="Environmental Protection"></button>
+          <button type="button" aria-label="Supporting Local Businesses and Jobs"></button>
+        </div>
       </div>
     </div>
   </section>
@@ -1410,7 +1545,7 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
       <h2 class="section-heading">About Kyle</h2>
       <div class="about-grid">
         <div>
-          <img class="about-photo" src="images/kyle-council.jpg" alt="Kyle Smith as Fayetteville City Council Member, Ward 4" style="object-position: center 15%;">
+          <img class="about-photo" src="images/headshot-2026.jpg" alt="Kyle Smith, candidate for Fayetteville City Council Ward 4" width="900" height="1200" loading="lazy">
           <div class="experience-badge">
             Former City Council Member, 2017&ndash;2020
           </div>
@@ -1798,6 +1933,45 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
       tile.addEventListener('mouseleave', stop);
       tile.addEventListener('blur', stop);
     });
+  </script>
+  <script>
+    // Hero policy carousel: rotates every 7s, pauses on hover/focus, and
+    // doesn't auto-rotate for people who prefer reduced motion.
+    (function () {
+      var root = document.querySelector('.policy-carousel');
+      if (!root) return;
+      var slides = root.querySelectorAll('.policy-slide');
+      var dots = root.querySelectorAll('.policy-dots button');
+      var i = 0, timer = null, paused = false;
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function show(n) {
+        i = (n + slides.length) % slides.length;
+        slides.forEach(function (s, k) {
+          s.classList.toggle('is-active', k === i);
+          s.setAttribute('aria-hidden', k === i ? 'false' : 'true');
+          if (k === i) s.querySelector('img').loading = 'eager';
+        });
+        dots.forEach(function (d, k) {
+          if (k === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+        });
+      }
+      function start() {
+        if (still || timer) return;
+        timer = setInterval(function () { if (!paused && !document.hidden) show(i + 1); }, 7000);
+      }
+      dots.forEach(function (d, k) {
+        d.addEventListener('click', function () { show(k); clearInterval(timer); timer = null; start(); });
+      });
+      root.addEventListener('mouseenter', function () { paused = true; });
+      root.addEventListener('mouseleave', function () { paused = false; });
+      root.addEventListener('focusin', function () { paused = true; });
+      root.addEventListener('focusout', function () { paused = false; });
+      // Warm the next images so the first fades don't flash empty.
+      window.addEventListener('load', function () {
+        slides.forEach(function (s) { s.querySelector('img').loading = 'eager'; });
+      });
+      start();
+    })();
   </script>
 </body>
 </html>
