@@ -207,6 +207,9 @@
     .policy-slide img {
       display: block;
       width: 100%;
+      /* height:auto is required: the width/height attributes otherwise set a
+         fixed pixel height that beats aspect-ratio and stretches the frame. */
+      height: auto;
       aspect-ratio: 5 / 4;
       object-fit: cover;
     }
