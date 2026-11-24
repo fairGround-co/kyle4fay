@@ -165,13 +165,14 @@
     .footer a { color: var(--gold); }
     .footer p { margin-bottom: 0.4rem; color: var(--white); font-size: 0.85rem; }
 
-    .more-heading {
+    .group-heading {
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 1.6rem;
       color: var(--navy);
       margin: 3rem 0 1.25rem;
     }
     .endorse-cards {
+      margin-bottom: 1.25rem;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1.25rem;
@@ -298,6 +299,10 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
          link (index.html#endorsements -> endorsements.html#<id>). To add a
          testimonial, uncomment the <blockquote> and paste the text in. -->
 
+    <!-- Sections match the homepage groups. In each, endorsers with text
+         get a full <article>; those without text yet sit in the image row
+         at the end of their section. When text arrives, turn the card into
+         an <article> in its place in the list. -->
     <article class="endorsement" id="chad-hall">
       <img src="images/endorsements/chad-hall.jpg" alt="Endorsement from Chad Hall, former Ward 4 candidate" loading="lazy" width="410" height="512">
       <div>
@@ -314,6 +319,7 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         <a class="watch" href="https://www.facebook.com/permalink.php?story_fbid=pfbid02GgVypMdhwRA3NeUKHzQnMNzP39QcPTrGW8q63dJ9P6Bid3qTXCeg8DwxxYkwvwbil&amp;id=61591357152057" target="_blank" rel="noopener">Read Chad&rsquo;s post on Facebook &rarr;</a>
       </div>
     </article>
+
     <article class="endorsement" id="aco-aru">
       <img src="images/endorsements/aco-aru.jpg" alt="Arkansas Community Organizations and Arkansas Renters United endorse Kyle Smith for City Council, Ward 4, Position 1" loading="lazy" width="2000" height="2000">
       <div>
@@ -327,6 +333,7 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         </div>
       </div>
     </article>
+
     <!-- Moms Demand Action requires that the Gun Sense Candidate distinction
          not be presented as an endorsement; keep the label and note. -->
     <article class="endorsement" id="gun-sense-candidate">
@@ -345,6 +352,9 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         <p class="note">The Gun Sense Candidate distinction is not an endorsement from Moms Demand Action or Everytown for Gun Safety Action Fund.</p>
       </div>
     </article>
+
+    <h2 class="group-heading">Public officials</h2>
+
     <article class="endorsement" id="kara-paxton">
       <img src="images/endorsements/kara-paxton.jpg" alt="Endorsement from Kara Paxton, City Clerk Treasurer, standing with Kyle outside City Hall" loading="lazy" width="512" height="640">
       <div>
@@ -355,6 +365,7 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         </blockquote>
       </div>
     </article>
+
     <article class="endorsement" id="dandre-jones">
       <img src="images/endorsements/dandre-jones.jpg" alt="Endorsement from Dr. D&rsquo;Andre Jones, Fayetteville City Council, Ward 1" loading="lazy" width="1080" height="1350">
       <div>
@@ -365,6 +376,21 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         </blockquote>
       </div>
     </article>
+
+    <article class="endorsement" id="sarah-marsh">
+      <img src="images/endorsements/sarah-marsh.jpg" alt="Endorsement from Sarah Marsh, former City Council member, in a selfie with Kyle at a solar array" loading="lazy" width="1080" height="1350">
+      <div>
+        <h2>Sarah Marsh</h2>
+        <p class="role">Former City Council Member</p>
+        <blockquote>
+          <p>Having served with both Smith and Turk on the City Council, Kyle Smith is a vastly superior choice in this race. He&rsquo;s a diligent researcher and policy wonk with an excellent understanding of how to solve Fayetteville&rsquo;s housing and transportation crises. He&rsquo;s been a solid advocate of good environmental policy and is a real collaborative problem solver. He doesn&rsquo;t mislead our well-meaning citizens with incomplete information and emotional ploys like his opponent.</p>
+          <p>Turk claims to be an environmentalist but has championed some of the most environmentally devastating land use policies, impeded progress on our recycling system improvements for years, and her votes on zoning and housing policy keep housing options scarce and rents high.</p>
+          <p>If you like sitting in traffic to commute in from the exurbs because you can&rsquo;t find an affordable place to live in Fayetteville, vote for Turk.</p>
+          <p>If you want housing options you can afford, improved public transit, more trails and sidewalks, and places for small businesses, vote for Kyle Smith &ndash; Fayetteville Ward 4.</p>
+        </blockquote>
+      </div>
+    </article>
+
     <article class="endorsement" id="vladimir-rivera-lopez">
       <img src="images/endorsements/vladimir-rivera-lopez.jpg" alt="Endorsement from Vladimir Rivera Lopez, Washington County Justice of the Peace, holding a yard sign with Kyle" loading="lazy" width="1080" height="1350">
       <div>
@@ -375,6 +401,19 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         </blockquote>
       </div>
     </article>
+
+    <article class="endorsement" id="shawndra-washington">
+      <img src="images/endorsements/shawndra-washington.jpg" alt="Endorsement from Shawndra Washington, Washington County Justice of the Peace" loading="lazy" width="1080" height="1350">
+      <div>
+        <h2>Shawndra Washington</h2>
+        <p class="role">Washington County Justice of the Peace, District 8</p>
+        <blockquote>
+          <p>The only decision I&rsquo;ll be making is whether I&rsquo;m going to the courthouse today, tomorrow, or Friday to early vote for Kyle Smith, or whether I want to walk across the street on December 1st to vote for Kyle Smith.</p>
+          <p>Either way, he has my vote! He should have yours too if you live in Ward 4.</p>
+        </blockquote>
+      </div>
+    </article>
+
     <article class="endorsement" id="evelyn-rios-stafford">
       <img src="images/endorsements/evelyn-rios-stafford.jpg" alt="Endorsement from Evelyn Rios Stafford, Washington County Justice of the Peace" loading="lazy" width="256" height="320">
       <div>
@@ -385,6 +424,58 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         </blockquote>
       </div>
     </article>
+
+    <article class="endorsement" id="keaton-smith">
+      <img src="images/endorsements/keaton-smith.jpg" alt="Endorsement from Keaton Smith, Fayetteville School Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
+      <div>
+        <h2>Keaton Smith</h2>
+        <p class="role">Fayetteville School Board (no relation)</p>
+        <blockquote>
+          <p>I am so grateful that Kyle Smith is running in Ward 4. I got to know him for the first time when he was first on City Council a few years ago. I was always impressed by his diligence, research, and how carefully he considered every opinion.</p>
+          <p>Over the last few years, we&rsquo;ve worked closely together as volunteer placemaking, housing, and transportation advocates with Fayetteville Strong, our local chapter of Strong Towns, which advocates for fiscal responsibility and great places.</p>
+          <p>I&rsquo;ve seen firsthand Kyle just be dedicated and put in the work to make Fayetteville a better place. I know how much he cares, and I know that he has the discernment to push for the right projects in the right places and press pause when we&rsquo;re going in the wrong direction.</p>
+          <p>I&rsquo;m really grateful that Kyle&rsquo;s running in Ward 4, and if you&rsquo;re in Ward 4, I hope you support him.</p>
+        </blockquote>
+        <a class="watch" href="https://www.facebook.com/reel/2195981711799357" target="_blank" rel="noopener">Watch Keaton&rsquo;s video on Facebook &rarr;</a>
+      </div>
+    </article>
+
+    <article class="endorsement" id="rob-qualls">
+      <img src="images/endorsements/rob-qualls.jpg" alt="Endorsement from Rob Qualls, Fayetteville Public Library Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
+      <div>
+        <h2>Rob Qualls</h2>
+        <p class="role">Fayetteville Public Library Board</p>
+        <blockquote>
+          <p>A little over 12 years ago, I moved to Fayetteville and almost immediately found common cause with Kyle Smith. I am proud to count him as a good friend and easily the most knowledgeable person on Fayetteville city government who doesn&rsquo;t actually work in it.</p>
+          <p>Kyle arrives at every decision through a rare blend of research, analysis, and compassion. While data guides his actions, he always balances the numbers with a strong sense of right and wrong.</p>
+          <p>My top priority for City Council is a personal one: I want my sons to be able to live and thrive in Fayetteville if they choose to stay after finishing their education. To make that possible, we need evidence-based policymaking that supports the housing and infrastructure required to keep costs in check and create more local job opportunities. Kyle also acts with a sense of urgency that I find missing on our Current City Council. Important decisions shouldn&rsquo;t be rushed, but they also shouldn&rsquo;t be obstructed and delayed.</p>
+          <p>It takes leaders like Kyle to move beyond rhetoric and do the hard work of removing the barriers to housing and success that too many in our community face.</p>
+          <p>Ward 4 voters should elect Kyle Smith for City Council.</p>
+        </blockquote>
+      </div>
+    </article>
+
+    <div class="endorse-cards">
+      <figure class="endorse-card" id="bob-stafford">
+        <img src="images/endorsements/bob-stafford.jpg" alt="Endorsement from Bob Stafford, Fayetteville City Council, Ward 1" loading="lazy" width="1080" height="1350">
+        <figcaption><strong>Bob Stafford</strong><span>Fayetteville City Council, Ward 1</span></figcaption>
+      </figure>
+      <figure class="endorse-card" id="matthew-petty">
+        <img src="images/endorsements/matthew-petty.jpg" alt="Endorsement from Matthew Petty, former City Council member" loading="lazy" width="1080" height="1350">
+        <figcaption><strong>Matthew Petty</strong><span>Former City Council Member</span></figcaption>
+      </figure>
+      <figure class="endorse-card" id="beth-coger">
+        <img src="images/endorsements/beth-coger.jpg" alt="Endorsement from Beth Coger, Washington County Justice of the Peace" loading="lazy" width="1080" height="1350">
+        <figcaption><strong>Beth Coger</strong><span>Washington County Justice of the Peace, District 9</span></figcaption>
+      </figure>
+      <figure class="endorse-card" id="megan-hurley">
+        <img src="images/endorsements/megan-hurley.jpg" alt="Endorsement from Megan Hurley, former Fayetteville School Board member, in a selfie with Kyle outdoors" loading="lazy" width="1080" height="1350">
+        <figcaption><strong>Megan Hurley</strong><span>Former Fayetteville School Board Member</span></figcaption>
+      </figure>
+    </div>
+
+    <h2 class="group-heading">Community leaders</h2>
+
     <article class="endorsement" id="lissa-kelly">
       <img src="images/endorsements/lissa-kelly.jpg" alt="Endorsement from Lissa Kelly, Heritage Village HOA, laughing with Kyle at an event" loading="lazy" width="819" height="1024">
       <div>
@@ -402,6 +493,7 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         </blockquote>
       </div>
     </article>
+
     <article class="endorsement" id="clark-eckels">
       <img src="images/endorsements/clark-eckels.jpg" alt="Endorsement from Clark Eckels, Fayetteville Strong, standing with Kyle and a friend around a strawberry mural" loading="lazy" width="410" height="512">
       <div>
@@ -416,34 +508,7 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         </blockquote>
       </div>
     </article>
-    <article class="endorsement" id="keaton-smith">
-      <img src="images/endorsements/keaton-smith.jpg" alt="Endorsement from Keaton Smith, Fayetteville School Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
-      <div>
-        <h2>Keaton Smith</h2>
-        <p class="role">Fayetteville School Board (no relation)</p>
-        <blockquote>
-          <p>I am so grateful that Kyle Smith is running in Ward 4. I got to know him for the first time when he was first on City Council a few years ago. I was always impressed by his diligence, research, and how carefully he considered every opinion.</p>
-          <p>Over the last few years, we&rsquo;ve worked closely together as volunteer placemaking, housing, and transportation advocates with Fayetteville Strong, our local chapter of Strong Towns, which advocates for fiscal responsibility and great places.</p>
-          <p>I&rsquo;ve seen firsthand Kyle just be dedicated and put in the work to make Fayetteville a better place. I know how much he cares, and I know that he has the discernment to push for the right projects in the right places and press pause when we&rsquo;re going in the wrong direction.</p>
-          <p>I&rsquo;m really grateful that Kyle&rsquo;s running in Ward 4, and if you&rsquo;re in Ward 4, I hope you support him.</p>
-        </blockquote>
-        <a class="watch" href="https://www.facebook.com/reel/2195981711799357" target="_blank" rel="noopener">Watch Keaton&rsquo;s video on Facebook &rarr;</a>
-      </div>
-    </article>
-    <article class="endorsement" id="rob-qualls">
-      <img src="images/endorsements/rob-qualls.jpg" alt="Endorsement from Rob Qualls, Fayetteville Public Library Board, standing with Kyle and a yard sign" loading="lazy" width="1080" height="1350">
-      <div>
-        <h2>Rob Qualls</h2>
-        <p class="role">Fayetteville Public Library Board</p>
-        <blockquote>
-          <p>A little over 12 years ago, I moved to Fayetteville and almost immediately found common cause with Kyle Smith. I am proud to count him as a good friend and easily the most knowledgeable person on Fayetteville city government who doesn&rsquo;t actually work in it.</p>
-          <p>Kyle arrives at every decision through a rare blend of research, analysis, and compassion. While data guides his actions, he always balances the numbers with a strong sense of right and wrong.</p>
-          <p>My top priority for City Council is a personal one: I want my sons to be able to live and thrive in Fayetteville if they choose to stay after finishing their education. To make that possible, we need evidence-based policymaking that supports the housing and infrastructure required to keep costs in check and create more local job opportunities. Kyle also acts with a sense of urgency that I find missing on our Current City Council. Important decisions shouldn&rsquo;t be rushed, but they also shouldn&rsquo;t be obstructed and delayed.</p>
-          <p>It takes leaders like Kyle to move beyond rhetoric and do the hard work of removing the barriers to housing and success that too many in our community face.</p>
-          <p>Ward 4 voters should elect Kyle Smith for City Council.</p>
-        </blockquote>
-      </div>
-    </article>
+
     <article class="endorsement" id="lara-bell-phillips">
       <img src="images/endorsements/lara-bell-phillips.jpg" alt="Endorsement from Lara Bell Phillips, For Fayetteville, smiling cheek to cheek with Kyle" loading="lazy" width="1080" height="1350">
       <div>
@@ -458,36 +523,8 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
         </blockquote>
       </div>
     </article>
-    <article class="endorsement" id="sarah-marsh">
-      <img src="images/endorsements/sarah-marsh.jpg" alt="Endorsement from Sarah Marsh, former City Council member, in a selfie with Kyle at a solar array" loading="lazy" width="1080" height="1350">
-      <div>
-        <h2>Sarah Marsh</h2>
-        <p class="role">Former City Council Member</p>
-        <blockquote>
-          <p>Having served with both Smith and Turk on the City Council, Kyle Smith is a vastly superior choice in this race. He&rsquo;s a diligent researcher and policy wonk with an excellent understanding of how to solve Fayetteville&rsquo;s housing and transportation crises. He&rsquo;s been a solid advocate of good environmental policy and is a real collaborative problem solver. He doesn&rsquo;t mislead our well-meaning citizens with incomplete information and emotional ploys like his opponent.</p>
-          <p>Turk claims to be an environmentalist but has championed some of the most environmentally devastating land use policies, impeded progress on our recycling system improvements for years, and her votes on zoning and housing policy keep housing options scarce and rents high.</p>
-          <p>If you like sitting in traffic to commute in from the exurbs because you can&rsquo;t find an affordable place to live in Fayetteville, vote for Turk.</p>
-          <p>If you want housing options you can afford, improved public transit, more trails and sidewalks, and places for small businesses, vote for Kyle Smith &ndash; Fayetteville Ward 4.</p>
-        </blockquote>
-      </div>
-    </article>
 
-    <!-- Endorsers without a testimonial yet. When text arrives, move the
-         entry up into a full <article> above. -->
-    <h2 class="more-heading">More endorsements</h2>
     <div class="endorse-cards">
-      <figure class="endorse-card" id="bob-stafford">
-        <img src="images/endorsements/bob-stafford.jpg" alt="Endorsement from Bob Stafford, Fayetteville City Council, Ward 1" loading="lazy" width="256" height="320">
-        <figcaption><strong>Bob Stafford</strong><span>Fayetteville City Council, Ward 1</span></figcaption>
-      </figure>
-      <figure class="endorse-card" id="beth-coger">
-        <img src="images/endorsements/beth-coger.jpg" alt="Endorsement from Beth Coger, Washington County Justice of the Peace" loading="lazy" width="1080" height="1350">
-        <figcaption><strong>Beth Coger</strong><span>Washington County Justice of the Peace, District 9</span></figcaption>
-      </figure>
-      <figure class="endorse-card" id="matthew-petty">
-        <img src="images/endorsements/matthew-petty.jpg" alt="Endorsement from Matthew Petty, former City Council member" loading="lazy" width="1080" height="1350">
-        <figcaption><strong>Matthew Petty</strong><span>Former City Council Member</span></figcaption>
-      </figure>
       <figure class="endorse-card" id="olivia-trimble">
         <img src="images/endorsements/olivia-trimble.jpg" alt="Endorsement from Olivia Trimble, local artist" loading="lazy" width="1080" height="1350">
         <figcaption><strong>Olivia Trimble</strong><span>Local Artist</span></figcaption>
@@ -495,14 +532,6 @@ src="https://www.facebook.com/tr?id=1765040423507276&ev=PageView&noscript=1"
       <figure class="endorse-card" id="pinpoint">
         <img src="images/endorsements/pinpoint.jpg" alt="Endorsement from Pinpoint Fayetteville" loading="lazy" width="1080" height="1350">
         <figcaption><strong>Pinpoint Fayetteville</strong></figcaption>
-      </figure>
-      <figure class="endorse-card" id="megan-hurley">
-        <img src="images/endorsements/megan-hurley.jpg" alt="Endorsement from Megan Hurley, former Fayetteville School Board member, in a selfie with Kyle outdoors" loading="lazy" width="1080" height="1350">
-        <figcaption><strong>Megan Hurley</strong><span>Former Fayetteville School Board Member</span></figcaption>
-      </figure>
-      <figure class="endorse-card" id="shawndra-washington">
-        <span class="endorse-card-blank" aria-hidden="true">Shawndra Washington</span>
-        <figcaption><strong>Shawndra Washington</strong><span>Washington County Justice of the Peace</span></figcaption>
       </figure>
     </div>
 
